@@ -1,0 +1,132 @@
+* {
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+}
+
+body {
+  font-family: "メイリオ", "Meiryo", "Arial";
+  padding: 0px;
+  margin: 0px;
+  background: #e2e6dc;
+}
+
+header {
+  padding-top: 5px;
+  height: 70px;
+}
+header a {
+  color: #000;
+  text-decoration: none;
+}
+header h1 {
+  font-size: 32pt;
+  color: #4c5c31;
+  margin: 0px;
+}
+.header-container {
+  max-width: 1000px;
+  margin: 0px auto 0;
+  padding-left: 32px;
+  height: 75px;
+  display: flex;
+  justify-content: space-between;
+}
+.aboutme {
+  padding-top: 16px;
+  padding-right: 32px;
+}
+
+
+/*****main*****/
+main {
+  max-width: 1000px;
+  margin: 0px auto 0;
+}
+
+section {
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+
+.card {
+  background-color: white;
+  padding: 32px;
+  margin-bottom: 20px;
+  border-radius: 10px 10px 10px 10px;
+}
+/* 記事カテゴリの装飾 */
+.kijicat {
+  margin-top: -10px;
+}
+.kijicat ul {
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+}
+.kijicat li {
+  display: block;
+  margin-right: 5px;
+  padding: 3px 5px;
+  border-radius: 2px;
+  background-color: #90ad1c;
+  color: #ffffff;
+  font-size: 12px;
+  text-decoration: none;
+}
+.kijicat li:hover {
+  background-color: #b4d823;
+}
+.kijicat ul:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.kijicat li {
+  float: left;
+  width: auto;
+}
+/* SAYA-CHAN */
+.saya-chan {
+  margin-top: 32px;
+  display: flex;
+}
+.saya-chan h3 {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 10px;
+  padding-top: 3px;
+}
+.saya-chan img {
+  width: 32px;
+  height: 32px;
+}
+.code-frame {
+  background-color: #272822;
+  color: #e3e3e3;
+  font-family: "SFMono-Regular","Consolas","Liberation Mono","Menlo","Courier,monospace";
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 15px;
+  white-space: nowrap;
+  overflow-x: auto;
+}
+
+footer {
+  padding: 20px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* 文字の色 */
+.bright_red {
+  color: #FF6D6D;
+}
+.bright_blue {
+  color: #3465a4;
+}
+.bright_purple {
+  color: #a1467e;
+}

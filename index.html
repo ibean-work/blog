@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>iBean</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="code-highlight-style.css">
+  <link rel="icon" href="favicon.ico">
+</head>
+
+<body>
+<header>
+  <div class="header-container">
+    <h1><a href="./index.html">iBean</a></h1>
+    <div class="aboutme"><a href="index.html#aboutMe">About me</a></div>
+  </dif>
+</header>
+
+<main>
+  <!-- 作成開始2021-01-08 終了2021-01-10 -->
+  <div class="card">
+    <h2>Excelで組替表を作る</h2>
+    <h5>
+      <time datetime="2021-01-10">2021-01-10</time>
+    </h5>
+    <div class="kijicat">
+      <ul>
+        <li>会計/経理</li>
+      </ul>
+    </div>
+    <section>
+      <div class="saya-chan">
+        <img src="./img/saya-chan.png">
+        <h3>&gt; 組替表ってなんですか？</h3>
+      </div>
+      <p>
+        簿記の検定試験と違い、実務では使用する勘定科目が膨大であることもあって、合計残高試算表から財務諸表（上場企業などが金融庁に提出する書類）や計算書類（株主総会や税務申告のための作成する書類）を作成することがそれなりに手間だったりします。
+      </p>
+      <p>
+        会計システムから自動で出力できれば良いのですが、区分掲記しなければならない科目が変動すると、マスタやシステムの変更が必要となります。また各勘定科目とBS、PLで表示される数値のつながりを検証をしたり、監査人に説明したりしなければならないため、合計残高試算表をExcelで加工して作成している会社が多いのではないでしょうか。この勘定科目から財務諸表や計算書類の表示科目へ変換する資料のことを<strong>組替表</strong>と呼びます。
+      </p>
+      <p>イメージとしては次のような資料になります。</p>
+      <img src="./img/kumikae01.png" alt="kumikae01">
+      <p>左の試算表は会計システムから出力されたデータとなり、右が最終的な成果物となります。</p>
+      <div class="saya-chan">
+        <img src="./img/saya-chan.png">
+        <h3>&gt; 組替表を作る手順を教えて！</h3>
+      </div>
+      <p>Excelで組替表を作成には、SUMIF関数使うことが前提となります。なので、まずSUMIF関数を説明します。</p>
+      <h4>SUMIF関数の使い方</h4>
+      <p>SUMIF関数は、指定した条件を満たすデータの合計値を求める関数です。次のように３つの引数を指定して使います。</p>
+      <p>
+        <hr>&nbsp;&nbsp;=SUMIF(<span class="bright_blue">検索範囲</span>, <span class="bright_red">検索条件</span>, <span class="bright_purple">合計範囲</span>)<hr>
+      </p>
+      <p>具体的な使い方は下の図のようになります。左側（A1セルからC10セル）が元となるデータで、右側に集計結果を示しています。今回は、元のデータから職業別の所持金の合計を集計しています。B列が検索範囲、C列が合計する対象となり、検索条件としてE2セルを指定しています。</p>
+      <img src="img/sumif.png">
+      <p>SUMIF関数がB列のセルを１つ１つチェックし、E2セルと同じ内容であればC列の同じ行にある数値を集計していきます。図の場合には、B2セルとB3セルの値が検索条件を満たすので、C2セルとC3セルの合計値(2,500)が計算されます。</p>
+      <h4>組替表の作成手順</h4>
+      <p>具体的な作業の流れは以下のようになります。</p>
+      <ol>
+        <li>会計システムから元データを出力する</li>
+        <li>財務諸表用の科目コードを付与する</li>
+        <li>SUMIF関数で集計する</li>
+      </ol>
+      <p>SUMIF関数の使い方が分かっていれば、後は、どのように集計コードを付与するかだけの問題となります。ここで付与する科目コードは、Excelの中でしか使わないので、あまり難しく考えずに2, 3桁程度の科目コードで十分です。財務諸表で使用する科目はあまり多くないので、長い桁は不要です。</p>
+      <img src="./img/kumikae02.png" alt="kumikae02">
+      <p>上の図のように３ステップで簡単に集計することができます。説明のため、図はかなり簡易的な財務諸表の形となっていますが、実際の作業でも行うことは同じなので難しいことは無いはずです。</p>
+      <p>SUMIF関数は組替表だけではなく、振替仕訳の集計などにも使えるため、経理であればぜひ覚えておくべき関数の１つと言えます。</p>
+    </section>
+  </div>
+  <!-- 作成開始2021-01-03 終了2021-01-07 -->
+  <div class="card">
+    <h2>RubyでExcelを操る！</h2>
+    <h5>
+      <time datetime="2021-01-07">2021-01-07</time>
+    </h5>
+    <div class="kijicat">
+      <ul>
+        <li>プログラミング</li>
+      </ul>
+    </div>
+    <section>
+      <div class="saya-chan">
+        <img src="./img/saya-chan.png">
+        <h3>&gt; Excel操作が大変なのでどうにかしたい</h3>
+      </div>
+      <p>
+        今どきは、Excelを操作するライブラリが充実しているので、簡単な作業であればネットに書かれているサンプルをコピーして少し書き換えるだけで、すぐに作業を自動化できます。
+        今回はプログラミング言語Rubyを使ってExcel操作の方法を説明して行きます。なお、Ruby自体のインストールや環境構築は既に終わているものとして説明を進めます。
+      </p>
+      <h4>rubyXLのインストール</h4>
+      <p>
+        rubyを使ってExcelの読み書きを行うためにrubyXLというライブラリをインストールしましょう。以下のコマンドで簡単にインストールできます。
+      </p>
+      <div class="code-frame">
+        > gem install rubyXL
+      </div>
+      <h4>rubyXLの使い方</h4>
+      <P>説明のため次のような内容のExcelファイル(book.xlsx)を用意しました。このファイルを読み込んで、いろいろな操作を行ってみましょう。</P>
+      <img src="./img/excel01.png" alt="excel-file">
+      <p>まずは、Excelを開いてA1セルの値（今回のExcelでは「太郎」）を出力してみます。</p>
+      <div class="code-frame">
+        <div class="highlight">
+          <span class="nb">require</span> <span class="s2">&quot;rubyxl&quot;</span><br>
+          <br>
+          <span class="n">book</span> <span class="o">=</span> <span class="no">RubyXL</span><span class="o">::</span><span class="no">Parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&quot;book.xlsx&quot;</span><span class="p">)</span><br>
+          <span class="n">sheet</span> <span class="o">=</span> <span class="n">book</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><br>
+          <span class="nb">puts</span> <span class="n">sheet</span><span class="o">[</span><span class="mi">0</span><span class="o">][</span><span class="mi">0</span><span class="o">].</span><span class="n">value</span> <span class="c1">#=&gt; 太郎</span><br>
+        </div>
+      </div>
+      <p>１行目に項目名を入れた方が分かりやすいので、項目名を追加して新しくbook2.xlsxとしてファイルを保存してみます。シートに行を追加するinsert_row()を使うためには、２行目のようにrequireする必要があるので注意してください。</p>
+      <div class="code-frame">
+        <div class="highlight">
+          <span></span><span class="nb">require</span> <span class="s2">&quot;rubyxl&quot;</span><br>
+          <span class="nb">require</span> <span class="s1">&quot;rubyXL/convenience_methods/worksheet&quot;</span><br>
+          <br>
+          <span class="n">book</span> <span class="o">=</span> <span class="no">RubyXL</span><span class="o">::</span><span class="no">Parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&quot;book.xlsx&quot;</span><span class="p">)</span><br>
+          <span class="n">sheet</span> <span class="o">=</span> <span class="n">book</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><br>
+          <span class="n">sheet</span><span class="o">.</span><span class="n">insert_row</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># 一番上に行を追加する</span><br>
+          <span class="n">sheet</span><span class="o">.</span><span class="n">add_cell</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;名前&quot;</span><span class="p">)</span> <span class="c1"># A1セル</span><br>
+          <span class="n">sheet</span><span class="o">.</span><span class="n">add_cell</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;職業&quot;</span><span class="p">)</span> <span class="c1"># B1セル</span><br>
+          <span class="n">sheet</span><span class="o">.</span><span class="n">add_cell</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;年齢&quot;</span><span class="p">)</span> <span class="c1"># C1セル</span><br>
+          <span class="n">sheet</span><span class="o">.</span><span class="n">add_cell</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;所持金&quot;</span><span class="p">)</span> <span class="c1"># D1セル</span><br>
+          <span class="n">book</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;book2.xlsx&quot;</span><span class="p">)</span><br>
+          </div>
+      </div>
+      <p>このスクリプトを実行すると、Excelファイルは次のようになります。</p>
+      <img src="./img/excel02.png" alt="excel-file">
+      <h4>簡単な分析をやってみる</h4>
+      <p>それでは次に、book.xslxのデータを基に簡単な分析をしてみましょう。職業別の所持金の平均値を求めてみます。<p>
+        プログラムの流れは次の通りです。
+        <ol>
+          <li>Excelから１行ずつデータを読込み、職業をキー、所持金の配列を値にしたハッシュを作成する<br>（例： { "小学生" => [2000, 500], "中学生" => [20000] }  ）。</li>
+          <li>1.で作成した配列をArray#sumで足し合わせ、得られた合計を配列の数で割る。</li>
+        </ol>
+      <div class="code-frame">
+        <div class="highlight">
+          <span></span><span class="nb">require</span> <span class="s2">&quot;rubyxl&quot;</span><br>
+          <span class="nb">require</span> <span class="s1">&quot;rubyXL/convenience_methods&quot;</span><br>
+          <br>
+          <span class="n">book</span> <span class="o">=</span> <span class="no">RubyXL</span><span class="o">::</span><span class="no">Parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&quot;book.xlsx&quot;</span><span class="p">)</span><br>
+          <span class="n">sheet</span> <span class="o">=</span> <span class="n">book</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><br>
+          <br>
+          <span class="c1"># 最終行を取得</span><br>
+          <span class="n">max_row</span> <span class="o">=</span> <span class="n">sheet</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span><span class="o">|</span><span class="n">row</span><span class="o">|</span> <span class="n">row</span> <span class="o">&amp;&amp;</span> <span class="n">row</span><span class="o">.</span><span class="n">cells</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">cell</span><span class="o">|</span> <span class="n">cell</span> <span class="o">&amp;&amp;</span> <span class="n">cell</span><span class="o">.</span><span class="n">value</span> <span class="o">!=</span> <span class="kp">nil</span><span class="p">}}</span><span class="o">.</span><span class="n">size</span><br>
+          <br>
+          <span class="n">money_data</span> <span class="o">=</span> <span class="p">{}</span><br>
+          <span class="p">(</span><span class="mi">0</span><span class="o">..</span><span class="n">max_row</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span><br>
+          &nbsp;&nbsp;<span class="k">if</span> <span class="n">money_data</span><span class="o">.</span><span class="n">has_key?</span><span class="p">(</span><span class="n">sheet</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="mi">1</span><span class="o">].</span><span class="n">value</span><span class="p">)</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="n">money_data</span><span class="o">[</span><span class="n">sheet</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="mi">1</span><span class="o">].</span><span class="n">value</span><span class="o">]</span> <span class="o">&lt;&lt;</span> <span class="n">sheet</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="mi">3</span><span class="o">].</span><span class="n">value</span><br>
+          &nbsp;&nbsp;<span class="k">else</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="n">money_data</span><span class="o">[</span><span class="n">sheet</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="mi">1</span><span class="o">].</span><span class="n">value</span><span class="o">]</span> <span class="o">=</span> <span class="o">[</span><span class="n">sheet</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="mi">3</span><span class="o">].</span><span class="n">value</span><span class="o">]</span><br>
+          &nbsp;&nbsp;<span class="k">end</span><br>
+          <span class="k">end</span><br>
+          <br>
+          <span class="n">money_data</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="o">|</span><br>
+            <span class="nb">puts</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">key</span><span class="si">}</span><span class="s2"> - </span><span class="si">#{</span><span class="n">value</span><span class="o">.</span><span class="n">sum</span><span class="o">.</span><span class="n">fdiv</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">length</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><br>
+          <span class="k">end</span><br>
+        </div>
+      </div>
+      <p>
+        このプログラムの実行結果：
+        <div class="code-frame">
+          小学生 - 1250.0<br>
+          中学生 - 20000.0<br>
+          高校生 - 50000.0<br>
+          大学生 - 138750.0<br>
+          公務員 - 1000000.0<br>
+        </div>
+      </p>
+      <p>
+        正しく職業別の平均値が得られています。このプログラムであれば、職業の種類が増えてもデータの数が増えても正しく平均値を集計してくれます。
+      </p>
+      <p>
+        今回紹介した程度の計算であれば、Excelのピボットテーブルを使えばすぐに求めることができます。しかし、同じフォーマットのExcelが100個あって、その中にある全ての数値の平均値を求めたいという状況であれば、プログラムを作成した方が良いでしょう。
+        Excel自体の機能でもできることは結構あるので、そこら辺の機能を見極めながらプログラミングによるシステム化を検討してみてください。
+      </p>
+    </section>
+  </div>
+  <div class="card">
+    <h2>経理の仕事をしている人を英語で何と呼ぶ？</h2>
+    <h5>
+      <time datetime="2021-01-02">2021-01-02</time>
+    </h5>
+    <div class="kijicat">
+      <ul>
+        <li>英語学習</li>
+        <li>会計/経理</li>
+      </ul>
+    </div>
+    <section>
+      <div class="saya-chan">
+        <img src="./img/saya-chan.png">
+        <h3>&gt; 経理担当者って英語で何て呼ぶの？</h3>
+      </div>
+      <p>
+        昨日の記事でiBeanの由来を書きましたが、その際に経理の仕事をしている人を英語で何と呼ぶのかについて記載しました。その場で思いついたものを書いたのですが、これらについて違いが良く分かっていなかったので、英語の勉強ついでに調べてみました。海外のサイトをいくつか見てまとめたのですが、米国の話になります。他の英語圏の国だと事情が違ってくるかもしれません。
+      </p>
+      <h4>bookkeeper</h4>
+      <p>
+        日々の取引について帳簿をつける人。請求書の発行、入出金の管理なども行う。
+      </p>
+      <p>
+        このポジションに就くために特に必要な学位や資格は無く、正確に処理できる能力と簿記の知識があれば良いようです。
+      </p>
+      <h4>accountant</h4>
+      <p>
+        決算整理仕訳を作成したり、財務諸表を作ったりする人。原価計算(Cost Accountant)や税金計算(Tax Accountant)、財務分析なども行ったりする。
+      </p>
+      <p>
+        大学で会計学を学んだりCPA保有者が就くポジションです。時にbookkeeperのような仕事も行ったりしますが、通常はそれよりも高度な計算や申告書の作成などを行います。給料もbookkeeperより高くなります。
+      </p>
+      <p>
+        Accountantを辞書で調べると「会計士」と書かれていることがありますが、日本の公認会計士のような意味ではないようです。公認会計士はaccountantと呼ぶのではなく、CPA(Certified Public Accountant)と呼ぶのが一般的ではないでしょうか。
+      </p>
+      <h4>controller</h4>
+      <p>
+        経理部門の責任者。予算の作成や決算の分析、CFOへの決算数値の説明などを行います。
+      </p>
+      <p>
+        会計や財務の学位はもちろん必要ですし、経理や財務部門で何年も経験を積んでから就くポジションとなります。責任が重い分、給料は高く米国での中央値は年収１０万ドルを超えています。
+      </p>
+    </section>
+    <!-- 作成開始2021-01-02 終了2021-01-02 -->
+    <section>
+      <div class="saya-chan">
+        <img src="./img/saya-chan.png">
+        <h3>&gt; 誰が偉いの？</h3>
+      </div>
+      <p>
+        上に書いたタイトルは大まかな分類で、実際には役割ごとに細かくタイトルが決められています。海外のサイトを見ていたら分かりやすい図があったので、下に載せておきます。経理部門のタイトルヒエラルキーです。
+      </p>
+      <img src="./img/accounting-job-titles-hierarchy-Ongig.png" alt="accounting-job-titles-hierarchy">
+      <p>
+        この図だとbookkeeperとaccountantは同じ階層になっていますが、会社によって多少位置関係が違うこともあるので、あくまで目安だと思ってください。
+      </p>
+    </section>
+  </div>
+  <!-- 作成開始2021-01-01 終了2021-01-01 -->
+  <div id="aboutMe" class="card">
+    <h2>はじめに</h2>
+    <h5>
+      <time datetime="2021-01-01">2021-01-01</time>
+    </h5>
+    <section>
+      <div class="saya-chan">
+        <img src="./img/saya-chan.png">
+        <h3>&gt; About me</h3>
+      </div>
+      <p>40代男のサラリーマンです。大学院では経済学を学んでいましたが、就職先は専攻とは無縁のメーカー経理に拾われました。それ以来、経理一筋でキャリアを積んでいます。原価計算、税務申告、連結決算など結構幅広く経験してきており、経理部門のIT周りも任されることが多いです。</p>
+      <p>数年前にメーカー経理から転職し、今は金融系の経理をやっています。ここ数年は、IFRSと連結決算、連結会計システムあたりの担当が定着し、そろそろ単体決算のやり方を忘れてきたのではないかと不安になっているところです。</p>
+    </section>
+    <section>
+      <div class="saya-chan">
+        <img src="./img/saya-chan.png">
+        <h3>&gt; このWebサイトは何？</h3>
+      </div>
+      <p>
+        個人の記録帳です。その日あったことや、学んだことを記録する習慣を付けることで、何かしなければいけないというプレッシャーを自分にかけることが目的です。他の人にとっても役立つことや、自分にとっての気づき、面白かったことなど、割と自由に書いて行く予定です。
+      </p>
+    </section>
+    <section>
+      <div class="saya-chan">
+        <img src="./img/saya-chan.png">
+        <h3>&gt; 何を書くのか具体的に教えて！</h3>
+      </div>
+      <p>
+        いまのところ、「英語学習」、「IT (コンピュータ/プログラミング)」、「会計/経理」の３つをメインに書いて行こうと思っています。
+      </p>
+      <h4>英語学習</h4>
+      <p>
+        その昔、会社で昇格にTOEIC500点以上が必要だったため勉強を始め、その内に海外とのやり取りが少しずつ増えてきたため、気が向いたら勉強してきました。飽きっぽい性格なので勉強が続かず、半年ごとに勉強したりしなかったりを繰り返しているため一向に上達していません。
+        現時点でTOEICの過去最高スコアは745点です。
+      </p>
+      <h4>IT(コンピュータ/プログラミング)</h4>
+      <p>
+        個人的な趣味でプログラミングを勉強したり、色々なソフトをインストールして遊んだりしています。これと言って作りたいものがあるわけではないため、勉強も長続きせず入門書的なものを見て満足してしまう中途半端な状態です。ネットワークやデータベースの初歩的な知識は、仕事で時々役立つことがあるので勉強して損を感じたことはないですが、もっと深く掘り下げて行きたいところ。
+      </p>
+      <h4>会計/経理</h4>
+      <p>
+        お仕事です。なんだかんだで１５年以上を経理一筋でやってきています。社内の出来事を書くのが経理の話として一番面白いのですが、そのまま書くわけにもいかないので、簿記や会計のテクニック的な話が中心になってしまうかと思います。
+      </p>
+    </section>
+    <section>
+      <div class="saya-chan">
+        <img src="./img/saya-chan.png">
+        <h3>&gt; iBeanって何？</h3>
+      </div>
+      <p>
+        「経理」を英語で皮肉って<strong>bean counter</strong>と呼ぶことがあります。豆の数を数えるつまらない仕事をしている人、数を合わせるだけの画一的な仕事をしている人、という意味になります。もちろんこれは皮肉的な呼び方なので、正式な場面では、bookkeeper や accountant、部門責任者だと controllerと呼びます。フォーマルな場では、間違ってもbean counterなどと呼ばないようにしてください。
+      </p>
+      <p>
+        経理が全員bean counterなわけではないのですが、中には本当に数を数えるくらいのことしかしていない人もいます。自分もそう呼ばれてしまうことの無いように気を付けたいものです。先頭の「i」はイニシャルです。
+      </p>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <small>Copyright(C)iBean, Allright Reserved.</small>
+</footer>
+</body>
+</html>
