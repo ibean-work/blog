@@ -2,8 +2,13 @@
   box-sizing: border-box;
 }
 
-img {
+img.fit-img {
   max-width: 100%;
+}
+.full-img {
+  width: 100%;
+  white-space: nowrap;
+  overflow-x: auto;
 }
 
 body {
@@ -23,11 +28,10 @@ header a {
 }
 header h1 {
   font-size: 32pt;
-  color: #4c5c31;
   margin: 0px;
 }
 .header-container {
-  max-width: 1000px;
+  max-width: 900px;
   margin: 0px auto 0;
   padding-left: 32px;
   height: 75px;
@@ -39,16 +43,37 @@ header h1 {
   padding-right: 32px;
 }
 
-
 /*****main*****/
 main {
-  max-width: 1000px;
+  max-width: 900px;
   margin: 0px auto 0;
 }
 
 section {
   margin-top: 32px;
   margin-bottom: 32px;
+}
+
+h1 {
+  font-size: 150%;
+}
+h1 a {
+  color: #000;
+  text-decoration: none;
+}
+
+h2 {
+  padding-left: 10px;
+  border-left: solid 4px #558866;
+  font-size: 140%;
+}
+
+h3 {
+  font-size: 120%;
+}
+
+p {
+  line-height: 2;
 }
 
 .card {
@@ -88,21 +113,7 @@ section {
   float: left;
   width: auto;
 }
-/* SAYA-CHAN */
-.saya-chan {
-  margin-top: 32px;
-  display: flex;
-}
-.saya-chan h3 {
-  margin-top: 0px;
-  margin-bottom: 0px;
-  margin-left: 10px;
-  padding-top: 3px;
-}
-.saya-chan img {
-  width: 32px;
-  height: 32px;
-}
+
 .code-frame {
   background-color: #272822;
   color: #e3e3e3;
@@ -115,9 +126,27 @@ section {
 }
 
 footer {
-  padding: 20px;
+  padding-bottom: 10px;
+}
+.footer-container {
+  max-width: 900px;
+  margin: 0px auto 0;
+  padding: 0 32px 0 32px;
+}
+.next {
+  text-align: left;
+  margin-bottom: 5px;
+}
+.prev {
+  text-align: right;
+  margin-bottom: 5px;
+}
+.top {
   text-align: center;
-  margin-top: 20px;
+}
+.copyright {
+  margin-top: 5px;
+  text-align: center;
 }
 
 /* 文字の色 */
