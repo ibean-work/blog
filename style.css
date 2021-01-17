@@ -125,6 +125,26 @@ p {
   overflow-x: auto;
 }
 
+.amazon-box {
+  border: solid 1px #dbdbdb;
+  box-shadow: 2px 3px 8px -5px rgba(0,0,0,.25);
+  display: flex;
+  padding: 12px 12px 12px 12px;
+}
+.amazon-content {
+  margin-left: 20px;
+}
+.amazon-content a {
+  color: #000;
+  font-size: 120%;
+  text-decoration: none;
+}
+.amazon-content ul {
+  list-style: none;
+  margin: 0 0 0 0;
+  padding-left: 0px;
+}
+
 footer {
   padding-bottom: 10px;
 }
