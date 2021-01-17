@@ -147,7 +147,7 @@
   </div>
 
   <div class="card">
-    <h1><a href="./entry/2021/01/07-rubyxl.html">RubyでExcelを操る！</a></h1>
+    <h1><a href="./entry/2021/01/07-openpyxl.html">openpyxlでExcelを操る！</a></h1>
     <h5>
       <time datetime="2021-01-07">2021-01-07</time>
     </h5>
@@ -160,43 +160,41 @@
       <h2>Excel操作が大変なのでどうにかしたい</h2>
       <p>
         今どきは、Excelを操作するライブラリが充実しているので、簡単な作業であればネットに書かれているサンプルをコピーして少し書き換えるだけで、すぐに作業を自動化できます。
-        今回はプログラミング言語Rubyを使ってExcel操作の方法を説明して行きます。なお、Ruby自体のインストールや環境構築は既に終わているものとして説明を進めます。
+        今回はプログラミング言語pythonを使ってExcel操作の方法を説明して行きます。なお、python自体のインストールや環境構築は既に終わているものとして説明を進めます。
       </p>
-      <h3>rubyXLのインストール</h3>
+      <h3>openpyxlのインストール</h3>
       <p>
-        rubyを使ってExcelの読み書きを行うためにrubyXLというライブラリをインストールしましょう。以下のコマンドで簡単にインストールできます。
+        pythonを使ってExcelの読み書きを行うためにopenpyxlというライブラリをインストールしましょう。以下のコマンドで簡単にインストールできます。
       </p>
       <div class="code-frame">
-        > gem install rubyXL
+        > pip install openpyxl
       </div>
-      <h3>rubyXLの使い方</h3>
+      <h3>openpyxlの使い方</h3>
       <P>説明のため次のような内容のExcelファイル(book.xlsx)を用意しました。このファイルを読み込んで、いろいろな操作を行ってみましょう。</P>
       <img class="fit-img" src="./img/2021/01/excel01.png" alt="excel-file">
       <p>まずは、Excelを開いてA1セルの値（今回のExcelでは「太郎」）を出力してみます。</p>
       <div class="code-frame">
-        <div class="highlight">
-          <span class="nb">require</span> <span class="s2">&quot;rubyxl&quot;</span><br>
-          <br>
-          <span class="n">book</span> <span class="o">=</span> <span class="no">RubyXL</span><span class="o">::</span><span class="no">Parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&quot;book.xlsx&quot;</span><span class="p">)</span><br>
-          <span class="n">sheet</span> <span class="o">=</span> <span class="n">book</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><br>
-          <span class="nb">puts</span> <span class="n">sheet</span><span class="o">[</span><span class="mi">0</span><span class="o">][</span><span class="mi">0</span><span class="o">].</span><span class="n">value</span> <span class="c1">#=&gt; 太郎</span><br>
+        <div class="highlight"><pre><span></span><span class="n">import</span> <span class="n">openpyxl</span>
+
+<span class="n">wb</span> <span class="o">=</span> <span class="n">openpyxl</span><span class="o">.</span><span class="n">load_workbook</span><span class="p">(</span><span class="s2">&quot;book.xlsx&quot;</span><span class="p">)</span>
+<span class="n">ws</span> <span class="o">=</span> <span class="n">wb</span><span class="o">[</span><span class="s2">&quot;Sheet1&quot;</span><span class="o">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ws</span><span class="o">[</span><span class="s2">&quot;A1&quot;</span><span class="o">].</span><span class="n">value</span><span class="p">)</span> <span class="c1"># ws.cell(1, 1)でも同じ</span></pre>
         </div>
       </div>
-      <p>１行目に項目名を入れた方が分かりやすいので、項目名を追加して新しくbook2.xlsxとしてファイルを保存してみます。シートに行を追加するinsert_row()を使うためには、２行目のようにrequireする必要があるので注意してください。</p>
+      <p>１行目に項目名を入れた方が分かりやすいので、項目名を追加して新しくbook2.xlsxとしてファイルを保存してみます。シートに行を追加するには、関数 insert_rows() を使います。</p>
       <div class="code-frame">
-        <div class="highlight">
-          <span></span><span class="nb">require</span> <span class="s2">&quot;rubyxl&quot;</span><br>
-          <span class="nb">require</span> <span class="s1">&quot;rubyXL/convenience_methods/worksheet&quot;</span><br>
-          <br>
-          <span class="n">book</span> <span class="o">=</span> <span class="no">RubyXL</span><span class="o">::</span><span class="no">Parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&quot;book.xlsx&quot;</span><span class="p">)</span><br>
-          <span class="n">sheet</span> <span class="o">=</span> <span class="n">book</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><br>
-          <span class="n">sheet</span><span class="o">.</span><span class="n">insert_row</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># 一番上に行を追加する</span><br>
-          <span class="n">sheet</span><span class="o">.</span><span class="n">add_cell</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;名前&quot;</span><span class="p">)</span> <span class="c1"># A1セル</span><br>
-          <span class="n">sheet</span><span class="o">.</span><span class="n">add_cell</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;職業&quot;</span><span class="p">)</span> <span class="c1"># B1セル</span><br>
-          <span class="n">sheet</span><span class="o">.</span><span class="n">add_cell</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;年齢&quot;</span><span class="p">)</span> <span class="c1"># C1セル</span><br>
-          <span class="n">sheet</span><span class="o">.</span><span class="n">add_cell</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;所持金&quot;</span><span class="p">)</span> <span class="c1"># D1セル</span><br>
-          <span class="n">book</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;book2.xlsx&quot;</span><span class="p">)</span><br>
-          </div>
+        <div class="highlight"><pre><span></span><span class="n">import</span> <span class="n">openpyxl</span>
+
+<span class="n">wb</span> <span class="o">=</span> <span class="n">openpyxl</span><span class="o">.</span><span class="n">load_workbook</span><span class="p">(</span><span class="s2">&quot;book.xlsx&quot;</span><span class="p">)</span>
+<span class="n">ws</span> <span class="o">=</span> <span class="n">wb</span><span class="o">[</span><span class="s2">&quot;Sheet1&quot;</span><span class="o">]</span>
+<span class="n">ws</span><span class="o">.</span><span class="n">insert_rows</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># １行目の上に行を追加</span>
+<span class="n">ws</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;名前&quot;</span>
+<span class="n">ws</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;職業&quot;</span>
+<span class="n">ws</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;年齢&quot;</span>
+<span class="n">ws</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;所持金&quot;</span>
+
+<span class="n">wb</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;book2.xlsx&quot;</span><span class="p">)</span></pre>
+        </div>
       </div>
       <p>このスクリプトを実行すると、Excelファイルは次のようになります。</p>
       <img class="fit-img" src="./img/2021/01/excel02.png" alt="excel-file">
@@ -204,33 +202,28 @@
       <p>それでは次に、book.xslxのデータを基に簡単な分析をしてみましょう。職業別の所持金の平均値を求めてみます。<p>
         プログラムの流れは次の通りです。
         <ol>
-          <li>Excelから１行ずつデータを読込み、職業をキー、所持金の配列を値にしたハッシュを作成する<br>（例： { "小学生" => [2000, 500], "中学生" => [20000] }  ）。</li>
-          <li>1.で作成した配列をArray#sumで足し合わせ、得られた合計を配列の数で割る。</li>
+          <li>Excelから１行ずつデータを読込み、職業をキー、所持金のリストを値にした辞書を作成する<br>（例： { "小学生": [2000, 500], "中学生": [20000] }  ）。</li>
+          <li>1.で作成した配列を sum() で足し合わせ、得られた合計を要素の数 len() で割る。</li>
         </ol>
       <div class="code-frame">
-        <div class="highlight">
-          <span></span><span class="nb">require</span> <span class="s2">&quot;rubyxl&quot;</span><br>
-          <span class="nb">require</span> <span class="s1">&quot;rubyXL/convenience_methods&quot;</span><br>
-          <br>
-          <span class="n">book</span> <span class="o">=</span> <span class="no">RubyXL</span><span class="o">::</span><span class="no">Parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&quot;book.xlsx&quot;</span><span class="p">)</span><br>
-          <span class="n">sheet</span> <span class="o">=</span> <span class="n">book</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><br>
-          <br>
-          <span class="c1"># 最終行を取得</span><br>
-          <span class="n">max_row</span> <span class="o">=</span> <span class="n">sheet</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span><span class="o">|</span><span class="n">row</span><span class="o">|</span> <span class="n">row</span> <span class="o">&amp;&amp;</span> <span class="n">row</span><span class="o">.</span><span class="n">cells</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">cell</span><span class="o">|</span> <span class="n">cell</span> <span class="o">&amp;&amp;</span> <span class="n">cell</span><span class="o">.</span><span class="n">value</span> <span class="o">!=</span> <span class="kp">nil</span><span class="p">}}</span><span class="o">.</span><span class="n">size</span><br>
-          <br>
-          <span class="n">money_data</span> <span class="o">=</span> <span class="p">{}</span><br>
-          <span class="p">(</span><span class="mi">0</span><span class="o">..</span><span class="n">max_row</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span><br>
-          &nbsp;&nbsp;<span class="k">if</span> <span class="n">money_data</span><span class="o">.</span><span class="n">has_key?</span><span class="p">(</span><span class="n">sheet</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="mi">1</span><span class="o">].</span><span class="n">value</span><span class="p">)</span><br>
-          &nbsp;&nbsp;&nbsp;&nbsp;<span class="n">money_data</span><span class="o">[</span><span class="n">sheet</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="mi">1</span><span class="o">].</span><span class="n">value</span><span class="o">]</span> <span class="o">&lt;&lt;</span> <span class="n">sheet</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="mi">3</span><span class="o">].</span><span class="n">value</span><br>
-          &nbsp;&nbsp;<span class="k">else</span><br>
-          &nbsp;&nbsp;&nbsp;&nbsp;<span class="n">money_data</span><span class="o">[</span><span class="n">sheet</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="mi">1</span><span class="o">].</span><span class="n">value</span><span class="o">]</span> <span class="o">=</span> <span class="o">[</span><span class="n">sheet</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="mi">3</span><span class="o">].</span><span class="n">value</span><span class="o">]</span><br>
-          &nbsp;&nbsp;<span class="k">end</span><br>
-          <span class="k">end</span><br>
-          <br>
-          <span class="n">money_data</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="o">|</span><br>
-          &nbsp;&nbsp;<span class="nb">puts</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">key</span><span class="si">}</span><span class="s2"> - </span><span class="si">#{</span><span class="n">value</span><span class="o">.</span><span class="n">sum</span><span class="o">.</span><span class="n">fdiv</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">length</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><br>
-          <span class="k">end</span><br>
-        </div>
+        <div class="highlight"><pre><span></span><span class="n">import</span> <span class="n">openpyxl</span>
+
+<span class="n">wb</span> <span class="o">=</span> <span class="n">openpyxl</span><span class="o">.</span><span class="n">load_workbook</span><span class="p">(</span><span class="s2">&quot;book.xlsx&quot;</span><span class="p">)</span>
+<span class="n">ws</span> <span class="o">=</span> <span class="n">wb</span><span class="o">[</span><span class="s2">&quot;Sheet1&quot;</span><span class="o">]</span>
+
+<span class="c1"># ワークシートのデータが存在する最終行を取得する</span>
+<span class="n">bottom_row</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">max_row</span>
+
+<span class="n">money_data</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="n">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">bottom_row</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">ws</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">value</span> <span class="k">in</span> <span class="ss">money_data</span><span class="p">:</span>
+        <span class="n">money_data</span><span class="o">[</span><span class="n">ws</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="o">].</span><span class="n">append</span><span class="p">(</span><span class="n">int</span><span class="p">(</span><span class="n">ws</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">)</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">money_data</span><span class="o">[</span><span class="n">ws</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="o">]</span> <span class="o">=</span> <span class="o">[</span><span class="n">int</span><span class="p">(</span><span class="n">ws</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">)</span><span class="o">]</span>
+
+<span class="k">for</span> <span class="n">data</span> <span class="k">in</span> <span class="n">money_data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;{} - {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">data</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><span class="p">,</span> <span class="n">sum</span><span class="p">(</span><span class="n">data</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span><span class="p">)</span><span class="o">/</span><span class="n">len</span><span class="p">(</span><span class="n">data</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span><span class="p">)))</span>
+          </pre></div>
       </div>
       <p>
         このプログラムの実行結果：
@@ -249,6 +242,23 @@
         今回紹介した程度の計算であれば、Excelのピボットテーブルを使えばすぐに求めることができます。しかし、同じフォーマットのExcelが100個あって、その中にある全ての数値の平均値を求めたいという状況であれば、プログラムを作成した方が良いでしょう。
         Excel自体の機能でもできることは結構あるので、そこら辺の機能を見極めながらプログラミングによるシステム化を検討してみてください。
       </p>
+      <h2>まとめ</h2>
+      <p>
+        単純な操作を大量に行うのであれば、プログラミングを行って自動化の検討をしてみるべきです。単純なプログラムでも組み合わせれば、それなりに複雑なこともできるので仕事で楽したいと思っている人はぜひプログラミングを学んでみてください。<br>
+      </p>
+      <dvi class="amazon-box">
+        <div class="amazon-container">
+          <a href="https://amzn.to/2Kpot36" target="_blank"><img src="https://m.media-amazon.com/images/I/51+xv65qdBL._SL160_.jpg"/></a>
+        </div>
+        <dvi class ="amazon-content">
+          <ul>
+            <li><a href="https://amzn.to/2Kpot36" target="_blank">入門 Python 3</a></li>
+            <li>Bill Lubanovic (著), 斎藤 康毅  (監修), 長尾 高弘  (翻訳)</li>
+            <li>出版社 : オライリージャパン</li>
+            <li>発売日 : 2015/12/1</li>
+          </ul>
+        </dvi>
+      </dvi>
     </section>
   </div>
 
