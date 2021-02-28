@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>openpyxlでExcelを操る！</title>
+
+  <link rel="stylesheet" href="../style.css">
+  <link rel="icon" href="../favicon.ico">
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-40Y4P5C6TG"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-40Y4P5C6TG');
+  </script>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="../index.html"><h2 class="nav-title">iBean</h2></a>
+      <ul>
+        <li><a href="../programming/index.html">プログラミング</a></li>
+        <li><a href="../accounting/index.html">会計/経理</a></li>
+        <li><a href="../english/index.html">英語学習</a></li>
+        <li><a href="../about/index.html">About</a></li>
+      </ul>
+    </div>
+  </nav>
+  <main>
+    <div class="post">
+      <div class="post-info">
+        <span>Written by ibean<br>on&nbsp;</span>
+        <time datetime="2021-01-07">January 7, 2021</time>
+      </div>
+      <h1 class="post-title">openpyxlでExcelを操る！</h1>
+      <div class="post-line"></div>
+
+      <section>
+        <h2>Excel操作が大変なのでどうにかしたい</h2>
+        <p>
+          今どきは、Excelを操作するライブラリが充実しているので、簡単な作業であればネットに書かれているサンプルをコピーして少し書き換えるだけで、すぐに作業を自動化できます。
+          今回はプログラミング言語pythonを使ってExcel操作の方法を説明して行きます。なお、python自体のインストールや環境構築は既に終わているものとして説明を進めます。
+        </p>
+        <h3>openpyxlのインストール</h3>
+        <p>
+          pythonを使ってExcelの読み書きを行うためにopenpyxlというライブラリをインストールしましょう。以下のコマンドで簡単にインストールできます。
+        </p>
+        <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">&gt; pip install openpyxl</code></pre></div>
+        <h3>openpyxlの使い方</h3>
+        <P>説明のため次のような内容のExcelファイル(book.xlsx)を用意しました。このファイルを読み込んで、いろいろな操作を行ってみましょう。</P>
+        <img class="fit-img" src="../img/2021-01-07_excel01.png" alt="excel-file">
+        <p>まずは、Excelを開いてA1セルの値（今回のExcelでは「太郎」）を出力してみます。</p>
+        <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> openpyxl
+
+wb <span style="color:#f92672">=</span> openpyxl<span style="color:#f92672">.</span>load_workbook(<span style="color:#e6db74">"book.xlsx"</span>)
+ws <span style="color:#f92672">=</span> wb[<span style="color:#e6db74">"Sheet1"</span>]
+<span style="color:#66d9ef">print</span>(ws[<span style="color:#e6db74">"A1"</span>]<span style="color:#f92672">.</span>value) <span style="color:#75715e"># ws.cell(1, 1)でも同じ</span></code></pre></div>
+        <p>１行目に項目名を入れた方が分かりやすいので、項目名を追加して新しくbook2.xlsxとしてファイルを保存してみます。シートに行を追加するには、関数 insert_rows() を使います。</p>
+        <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> openpyxl
+
+wb <span style="color:#f92672">=</span> openpyxl<span style="color:#f92672">.</span>load_workbook(<span style="color:#e6db74">"book.xlsx"</span>)
+ws <span style="color:#f92672">=</span> wb[<span style="color:#e6db74">"Sheet1"</span>]
+ws<span style="color:#f92672">.</span>insert_rows(<span style="color:#ae81ff">1</span>)  <span style="color:#75715e"># １行目の上に行を追加</span>
+ws<span style="color:#f92672">.</span>cell(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>)<span style="color:#f92672">.</span>value <span style="color:#f92672">=</span> <span style="color:#e6db74">"名前"</span>
+ws<span style="color:#f92672">.</span>cell(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>)<span style="color:#f92672">.</span>value <span style="color:#f92672">=</span> <span style="color:#e6db74">"職業"</span>
+ws<span style="color:#f92672">.</span>cell(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>)<span style="color:#f92672">.</span>value <span style="color:#f92672">=</span> <span style="color:#e6db74">"年齢"</span>
+ws<span style="color:#f92672">.</span>cell(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>)<span style="color:#f92672">.</span>value <span style="color:#f92672">=</span> <span style="color:#e6db74">"所持金"</span>
+
+wb<span style="color:#f92672">.</span>save(<span style="color:#e6db74">"book2.xlsx"</span>)</code></pre></div>
+                  <p>このスクリプトを実行すると、Excelファイルは次のようになります。</p>
+        <img class="fit-img" src="../img/2021-01-07_excel02.png" alt="excel-file">
+        <h3>簡単な分析をやってみる</h3>
+        <p>それでは次に、book.xslxのデータを基に簡単な分析をしてみましょう。職業別の所持金の平均値を求めてみます。<p>
+          プログラムの流れは次の通りです。
+          <ol>
+            <li>Excelから１行ずつデータを読込み、職業をキー、所持金のリストを値にした辞書を作成する<br>（例： { "小学生": [2000, 500], "中学生": [20000] }  ）。</li>
+            <li>1.で作成した配列を sum() で足し合わせ、得られた合計を要素の数 len() で割る。</li>
+          </ol>
+          <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> openpyxl
+
+wb <span style="color:#f92672">=</span> openpyxl<span style="color:#f92672">.</span>load_workbook(<span style="color:#e6db74">"book.xlsx"</span>)
+ws <span style="color:#f92672">=</span> wb[<span style="color:#e6db74">"Sheet1"</span>]
+
+<span style="color:#75715e"># ワークシートのデータが存在する最終行を取得する</span>
+bottom_row <span style="color:#f92672">=</span> ws<span style="color:#f92672">.</span>max_row
+
+money_data <span style="color:#f92672">=</span> {}
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, bottom_row<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>):
+    <span style="color:#66d9ef">if</span> ws<span style="color:#f92672">.</span>cell(i, <span style="color:#ae81ff">2</span>)<span style="color:#f92672">.</span>value <span style="color:#f92672">in</span> money_data:
+        money_data[ws<span style="color:#f92672">.</span>cell(i, <span style="color:#ae81ff">2</span>)<span style="color:#f92672">.</span>value]<span style="color:#f92672">.</span>append(int(ws<span style="color:#f92672">.</span>cell(i, <span style="color:#ae81ff">4</span>)<span style="color:#f92672">.</span>value))
+    <span style="color:#66d9ef">else</span>:
+        money_data[ws<span style="color:#f92672">.</span>cell(i, <span style="color:#ae81ff">2</span>)<span style="color:#f92672">.</span>value] <span style="color:#f92672">=</span> [int(ws<span style="color:#f92672">.</span>cell(i, <span style="color:#ae81ff">4</span>)<span style="color:#f92672">.</span>value)]
+
+<span style="color:#66d9ef">for</span> data <span style="color:#f92672">in</span> money_data<span style="color:#f92672">.</span>items():
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">'{} - {}'</span><span style="color:#f92672">.</span>format(data[<span style="color:#ae81ff">0</span>], sum(data[<span style="color:#ae81ff">1</span>])<span style="color:#f92672">/</span>len(data[<span style="color:#ae81ff">1</span>])))</code></pre></div>
+
+        <p>
+          このプログラムの実行結果：
+          <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">小学生 - 1250.0
+中学生 - 20000.0
+高校生 - 50000.0
+大学生 - 138750.0
+公務員 - 1000000.0</code></pre></div>
+        </p>
+        <p>
+          正しく職業別の平均値が得られています。このプログラムであれば、職業の種類が増えてもデータの数が増えても正しく平均値を集計してくれます。
+        </p>
+        <p>
+          今回紹介した程度の計算であれば、Excelのピボットテーブルを使えばすぐに求めることができます。しかし、同じフォーマットのExcelが100個あって、その中にある全ての数値の平均値を求めたいという状況であれば、プログラムを作成した方が良いでしょう。
+          Excel自体の機能でもできることは結構あるので、そこら辺の機能を見極めながらプログラミングによるシステム化を検討してみてください。
+        </p>
+        <h2>まとめ</h2>
+        <p>
+          単純な操作を大量に行うのであれば、プログラミングを行って自動化の検討をしてみるべきです。単純なプログラムでも組み合わせれば、それなりに複雑なこともできるので仕事で楽したいと思っている人はぜひプログラミングを学んでみてください。<br>
+        </p>
+        <p>（参考図書）</p>
+        <dvi class="amazon-box">
+          <div class="amazon-container">
+            <a href="https://amzn.to/2Kpot36" target="_blank"><img src="https://m.media-amazon.com/images/I/51+xv65qdBL._SL160_.jpg"/></a>
+          </div>
+          <dvi class ="amazon-content">
+            <ul>
+              <li><a href="https://amzn.to/2Kpot36" target="_blank">入門 Python 3</a></li>
+              <li>Bill Lubanovic (著), 斎藤 康毅  (監修), 長尾 高弘  (翻訳)</li>
+              <li>出版社 : オライリージャパン</li>
+              <li>発売日 : 2015/12/1</li>
+            </ul>
+          </dvi>
+        </dvi>
+      </section>
+
+    </div>
+	  <div class="pagination">
+		  <a href="../english/2021-01-02.html" class="left arrow">&#8592;</a>
+		  <a href="../accounting/2021-01-10.html" class="right arrow">&#8594;</a>
+		  <a href="#" class="top">Top</a>
+	  </div>
+  </main>
+  <footer>
+    <span>
+      &copy; <time datetime="2021-01-07">2021</time>. ibean
+      </span>
+    </footer>
+</body>
+</html>

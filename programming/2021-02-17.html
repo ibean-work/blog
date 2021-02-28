@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>Rubyライブラリの種類</title>
+
+  <link rel="stylesheet" href="../style.css">
+  <link rel="icon" href="../favicon.ico">
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-40Y4P5C6TG"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-40Y4P5C6TG');
+  </script>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="../index.html"><h2 class="nav-title">iBean</h2></a>
+      <ul>
+        <li><a href="../programming/index.html">プログラミング</a></li>
+        <li><a href="../accounting/index.html">会計/経理</a></li>
+        <li><a href="../english/index.html">英語学習</a></li>
+        <li><a href="../about/index.html">About</a></li>
+      </ul>
+    </div>
+  </nav>
+  <main>
+    <div class="post">
+      <div class="post-info">
+        <span>Written by ibean<br>on&nbsp;</span>
+        <time datetime="2021-02-17">February 17, 2021</time>
+      </div>
+      <h1 class="post-title">Rubyライブラリの種類</h1>
+      <div class="post-line"></div>
+
+      <p>昨日のwebrickを探し回る過程で、ライブラリの種類について理解していないことに気づき、今回はRubyのライブラリの種類についてまとめてみました。以下はWindows10のRuby3.0で調べました。</p>
+      <h2 id="各種ライブラリの概要">各種ライブラリの概要</h2>
+      <h3 id="組み込みライブラリbuiltin-libraries">組み込みライブラリ(Builtin libraries)</h3>
+      <p>require を書かなくても使うことができるクラスやモジュール。全てのクラスの親となる<code>Object</code>クラスや<code>Array</code>, <code>IO</code>, <code>String</code>, <code>Symbol</code>クラスなど、これら無しではプログラムが成り立たない基本中の基本となるクラスが含まれています。他にも、Kernelモジュールや例外クラスExceptionもここで定義されています。</p>
+      <p>このライブラリはRuby本体に組み込まれているため、インストールしたディレクトリを見に行ってもソースコードを見ることができません。C言語で書かれているようですし、深入りはしないようにします。個人的には興味があるので、時間があるときにC言語の勉強ついでに読みたいものです。</p>
+      <h3 id="標準ライブラリstandard-libraries">標準ライブラリ(Standard libraries)</h3>
+      <p>インストール直後の <code>lib/</code> 以下に保存されているRubyファイルが該当します。なので、<a href="https://docs.ruby-lang.org/ja/latest/library/index.html">ライブラリ一覧</a>に記載されているものが、全てここに置いてあるのでしょう。数も種類も非常に多く、何のために使うのか全く分からないものもたくさんあります。眺めるだけでも結構楽しめます。見た限り、ほぼすべてがRubyで書かれているので、興味のあるものから少しずつ読んでいくといいでしょう。</p>
+      <h3 id="default-gem">default gem</h3>
+      <p>標準ライブラリの内、gem化されたライブラリのことです。<code>gem list</code>コマンドで表示される一覧に<code>default</code>がバージョンの前に付いていればdefault gemです。</p>
+      <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">PS &gt; gem list
+      
+*** LOCAL GEMS ***
+      
+abbrev <span style="color:#f92672">(</span>default: 0.1.0<span style="color:#f92672">)</span>
+base64 <span style="color:#f92672">(</span>default: 0.1.0<span style="color:#f92672">)</span>
+benchmark <span style="color:#f92672">(</span>default: 0.1.1<span style="color:#f92672">)</span>
+.
+.</code></pre></div><p>default gem は削除できません。</p>
+      <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">PS &gt; gem uninstall irb
+Gem irb-1.3.0 cannot be uninstalled because it is a default gem</code></pre></div><h3 id="bundled-gem">bundled gem</h3>
+      <p>Rubyのインストール時に付属している単なるgemで、削除可能です。<code>minitest</code>やRuby3.0から新しく加わった<code>rbs</code>、<code>typeprof</code>などが該当します。</p>
+      <h2 id="標準ライブラリのgem化">標準ライブラリのgem化</h2>
+      <p>Rubyの標準ライブラリは現在gem化を進めています。3.0になって多くの標準ライブラリがgem化されました。とありますが、今の自分ではなぜgem化を進めているのか、その利点が良く分かりません。<a href="https://stdgems.org/">Ruby Standard Gems</a>というサイトにgem化の話がまとめられています。</p>
+      <blockquote>
+      <p>Ruby&rsquo;s standard library is in the process of being gemified. More and more libraries will be turned into RubyGems, which can be updated independently from Ruby.</p>
+      </blockquote>
+      <p>（Rubyの標準ライブラリはgem化を推進中です。より多くのライブラリがgem化され、その結果、Ruby本体とは独立にアップデートすることができるでしょう。）</p>
+      <p>どうもgem化をすることで、Ruby本体の開発とgemの開発を独立させることができるようです。逆に、gem化されていないライブラリはRubyの開発の足を引っ張ることになるとも言えます。このあたりの関係がピンと来ていないので、今後の自分の課題です。</p>
+    </div>
+
+	  <div class="pagination">
+		  <a href="../programming/2021-02-16.html" class="left arrow">&#8592;</a>
+		  <a href="../programming/2021-02-18.html" class="right arrow">&#8594;</a>
+		  <a href="#" class="top">Top</a>
+	  </div>
+  </main>
+  <footer>
+    <span>
+      &copy; <time datetime="2021-02-17">2021</time>. ibean
+      </span>
+    </footer>
+</body>
+</html>

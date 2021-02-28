@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>前払費用をExcelで管理する</title>
+
+  <link rel="stylesheet" href="../style.css">
+  <link rel="icon" href="../favicon.ico">
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-40Y4P5C6TG"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-40Y4P5C6TG');
+  </script>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="../index.html"><h2 class="nav-title">iBean</h2></a>
+      <ul>
+        <li><a href="../programming/index.html">プログラミング</a></li>
+        <li><a href="../accounting/index.html">会計/経理</a></li>
+        <li><a href="../english/index.html">英語学習</a></li>
+        <li><a href="../about/index.html">About</a></li>
+      </ul>
+    </div>
+  </nav>
+  <main>
+    <div class="post">
+      <div class="post-info">
+        <span>Written by ibean<br>on&nbsp;</span>
+        <time datetime="2021-01-14">January 14, 2021</time>
+      </div>
+      <h1 class="post-title">前払費用をExcelで管理する</h1>
+      <div class="post-line"></div>
+
+      <section>
+        <h2>前払費用の管理について</h2>
+        <p>
+          前払費用はその名の通り、将来の期間に渡って受け取るサービスなどに対して支払った金額を計上する科目です。お金は先に支払いますが、支払った時点で全額をPLで費用認識するのではなく、サービスを受け取る期間に応じて費用を認識します。
+        </p>
+        <p>
+          処理としては、残存価額がゼロの定額法による固定資産の減価償却と全く同じです。しかし、固定資産はシステムで管理している会社が多いと思われますが、前払費用のような科目を管理するシステムを持つ会社は多くはないでしょう。ほとんどの場合、Excelでの管理がメインだと思います。
+        </p>
+        <p>今回はExcelで費用を期間按分するための表の作り方を紹介します。</p>
+        <h2>費用按分表の作り方</h2>
+        <p>費用を按分するための表を、下図の①～③の３つの部分に分けて説明していきます。横に長い図なのでスクロールして全体を見てください。</p>
+        <div class="full-img">
+          <img src="../img/2021-01-14_prepayment-outline.png" alt="prepayment-outline">
+        </div>
+        <h3>①入力</h3>
+        <p>この部分は手で入力する部分なので、関数などは使いません。項目のタイトルを書き、金額列は３桁区切りの表示にしておくこと、開始/終了列は日付が表示される書式にしておくと良いでしょう。</p>
+        <img class="fit-img" src="../img/2021-01-14_prepayment-01.png" alt="prepayment-01">
+        <p>なお、今回作成する表のルールとして、期間按分の開始はその月の初日を入力し、終了は月末日を入力することとします。日割り計算は考慮しません。</p>
+        <h3>②計算</h3>
+        <p>
+          表のメインパーツになります。①で入力されたデータを基に自動的に費用の期間按分を行います。
+        </p>
+        <h4>期間</h4>
+        <p>まず左側の「期間」列ですが、ここは開始と終了から関数式で月数を計算します。数式は下図のようになっています。</p>
+        <div class="full-img">
+          <img src="../img/2021-01-14_prepayment-02.png" alt="prepayment-02">
+        </div>
+        <p>
+          関数を１つずつ見ていきましょう。
+          <hr><div style="margin-left: 16pt;">( YEAR(<span class="bright_blue">E3</span>) - YEAR(<span class="bright_red">D3</span>) ) * 12</div><hr>
+        </p>
+        <p>YEAR関数は日付データの西暦部分を抽出する関数です。YEAR(E3) と YEAR(D3) はどちらも 2021 を返します。年を跨いだ場合、例えば2020年12月開始、2021年1月終了であれば、YEAR関数はそれぞれ2020、2020を返します。12を掛けているのは年を月数に変換するためです。</p>
+        <hr><div style="margin-left: 16pt;">MONTH(<span class="bright_blue">E3</span>) - MONTH(<span class="bright_red">D3</span>) + 1</div><hr>
+        <p>MONTH関数もYEAR関数と同じように日付データから月部分を抽出する関数です。MONTH(E3) は 3 を、MONTH(D3)は 1 を返します。今回は開始月を１日としているので、差を取ると１カ月少なくなることから+1しています。上の例では、結果は 3 となります。</p>
+        <p>YEAR部分とMONTH部分を足し合わせると費用発生期間（月数）を求めることになります。今回の場合は、<br>( 2021 - 2021 ) * 12 + ( 3 - 1 ) + 1 = 3 です。</p>
+        <h4>按分費用</h4>
+        <p>各月に設定されている関数を見ていきましょう。</p>
+        <div class="full-img">
+          <img src="../img/2021-01-14_prepayment-03.png" alt="prepayment-03">
+        </div>
+        <p>
+          まず、IF関数の中身ですが、条件を満たしたら金額/期間を返し、そうでなければ0を返す、となっています。
+          <hr><div style="margin-left: 16pt;">=IF( [この条件を満たしたら], <span class="bright_blue">ROUND( 金額/ 期間 )</span>, <span class="bright_red">0</span>)</div><hr>
+        </p>
+        <p>
+          [この条件を満たしたら]の中は下の式になっています。「当月」は費用を計上する各月（図で言うと２行目）を意味しています。式の意味は、<u>「当月」が開始と終了の間にあれば条件を満たす</u>、となります。
+          <hr><div style="margin-left: 16pt;">AND( <span class="bright_blue">開始</span> &lt;= <span class="bright_red">当月</span>, <span class="bright_red">当月</span> &lt;= <span class="bright_purple">終了</span> )</div><hr>
+        </p>
+        <h4>合計</h4>
+        <p>
+          各月の費用の合計値を計算しています。合計が支払金額と一致しているかを検証するために算出しています。
+        </p>
+        <h3>③チェック</h3>
+        <p>
+          チェック式は入力ミスや計算ミスを防ぐためにも、必ず入れておきましょう。あるのとないのでは資料の正確性が全然違ってきます。
+        </p>
+        <h4>合計ch</h4>
+        <p>合計chは、<u>按分した費用の合計値</u>と<u>支払金額</u>が一致していることを確認します。</p>
+        <img class="fit-img" src="../img/2021-01-14_prepayment-04.png" alt="prepayment-04">
+        <h4>初日ch、末日ch</h4>
+        <p>開始の日付は１日、終了の日付はその月の末日を入力することになっています。このチェックでは、日付の入力が正しいかの確認しています。</p>
+        <img class="fit-img" src="../img/2021-01-14_prepayment-05.png" alt="prepayment-05">
+        <p>
+          末日のチェックには、EOMONTH関数を使い「終了」の月の最終日の日時データを求め、そこからDAY関数で日付を抽出しています。
+        </p>
+        <img class="fit-img" src="../img/2021-01-14_prepayment-06.png" alt="prepayment-06">
+        <h2>まとめ</h2>
+        <p>
+          今回は前払費用という名目で管理表を作成しましたが、前払費用に限らず減価償却費や前受収益など期間按分するものであれば同じ構成で計算することができます。比較的簡単に作れ、応用パターンも多いので、このような表の作り方を覚えておいて損はないでしょう。
+        </p>
+      </section>
+
+    </div>
+	  <div class="pagination">
+		  <a href="../accounting/2021-01-10.html" class="left arrow">&#8592;</a>
+		  <a href="../accounting/2021-01-31.html" class="right arrow">&#8594;</a>
+		  <a href="#" class="top">Top</a>
+	  </div>
+  </main>
+  <footer>
+    <span>
+      &copy; <time datetime="2021-01-14">2021</time>. ibean
+      </span>
+    </footer>
+</body>
+</html>
