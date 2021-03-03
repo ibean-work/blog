@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ブロック付きHash.new</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="icon" href="../favicon.ico">
+</head>
+<body>
+<header>
+  <div class="header-container">
+    <h1><a href="../index.html">iBean</a></h1>
+    <div class="aboutme"><a href="../about/index.html">About me</a></div>
+  </dif>
+</header>
+<main>
+  <div class="card">
+    <h1>ブロック付きHash.new</h1>
+    <h5>
+      <time datetime="2021-02-21">2021-02-21</time>
+    </h5>
+    <div class="kijicat">
+      <ul>
+        <li>プログラミング</li>
+      </ul>
+    </div>
+    <section>
+      <p>自作Webサーバを作る際にwebrickのソースコードを眺めていたのですが、規模が大きすぎて何をしているのかさっぱり分かりませんでした。本格的なコードを読んだ経験は全くなく、これまで読んだコードと言えば、サンプルやリファレンスマニュアルに記載してある短いものばかりでだったので、ソースが複数ファイルに分かれているだけで流れを終えなくなり、やがて力尽きてしまいました。</p>
+      <p>ソースコードリーディングの技術を磨くのは今後の課題として、今回は、webrickを眺めていた時に出会った、ブロック付きHash.newメソッドについてのメモです。</p>
+      <h2 id="ハッシュにキーと初期値を同時に設定する構文">ハッシュにキーと初期値を同時に設定する構文</h2>
+      <p>見つけたのは、こんなコードでした。初期化と同時に何か設定をしていることは分かったのですが、何が起こっているのかさっぱり理解できませんでした。</p>
+      <div class="code-frame">
+        <div class="highlight">
+          <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#66d9ef">Hero</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">Hash</span><span style="color:#f92672">.</span>new { <span style="color:#f92672">|</span>hash, key<span style="color:#f92672">|</span>
+  <span style="color:#66d9ef">case</span> key
+  <span style="color:#66d9ef">when</span> <span style="color:#e6db74">:name</span>
+    hash<span style="color:#f92672">[</span>key<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;HOGE&#34;</span>
+  <span style="color:#66d9ef">else</span>
+    <span style="color:#66d9ef">nil</span>
+  <span style="color:#66d9ef">end</span>
+}<span style="color:#f92672">.</span>update(
+  <span style="color:#e6db74">age</span>: <span style="color:#ae81ff">16</span>,
+  <span style="color:#e6db74">Lv</span>:   <span style="color:#ae81ff">1</span>,
+  <span style="color:#e6db74">HP</span>:  <span style="color:#ae81ff">12</span>
+)</code></pre>
+        </div>
+      </div>
+      <p>手元にあった<a href="https://amzn.to/2NoV2Qi">『プロを目指す人のためのRuby入門』</a>でこの構文を探したら、すぐに見つかりました。ハッシュにキーと初期値を同時に設定することができるそうです。上の例だと<code>Hero[:name]</code>というハッシュを使った瞬間に、キー<code>:name</code>、値<code>&quot;HOGE&quot;</code>が設定されたハッシュが作られることになります。</p>
+      <p><code>Hero[:name]</code>を書かない限り、キー<code>:name</code>とその値は設定されず、<code>.update()</code>で設定されたキーと値だけがハッシュ<code>Hero</code>の内容となります。</p>
+      <div class="code-frame">
+        <div class="highlight">
+          <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#66d9ef">Hero</span><span style="color:#f92672">[</span><span style="color:#e6db74">:age</span><span style="color:#f92672">]</span>
+p <span style="color:#66d9ef">Hero</span>      <span style="color:#75715e">#=&gt; {age=&gt;16, :Lv=&gt;1, :HP=&gt;12}</span>
+
+<span style="color:#66d9ef">Hero</span><span style="color:#f92672">[</span><span style="color:#e6db74">:name</span><span style="color:#f92672">]</span> <span style="color:#75715e"># １度でもHero[:name]を評価すれば、:nameの値が設定される</span>
+p <span style="color:#66d9ef">Hero</span>      <span style="color:#75715e">#=&gt; {:age=&gt;16, :Lv=&gt;1, :HP=&gt;12, :name=&gt;&#34;HOGE}</span></code></pre>
+        </div>
+      </div>
+      <p>よく使われるコードだと本には書いていましたが、初期値を設定することの利点が良く分かっておらず、今の時点ではこのような書き方もあるのだと記憶する程度でした。</p>
+      <p>（参考図書）</p>
+      <dvi class="amazon-box">
+        <div class="amazon-container">
+          <a href="https://amzn.to/2NoV2Qi" target="_blank"><img src="https://m.media-amazon.com/images/I/51nY-YLt2ZL._SL160_.jpg"/></a>
+        </div>
+        <dvi class ="amazon-content">
+          <ul>
+            <li><a href="https://amzn.to/2NoV2Qi" target="_blank">プロを目指す人のためのRuby入門 言語仕様からテスト駆動開発・デバッグ技法まで</a></li>
+            <li>伊藤 淳一 (著)</li>
+            <li>出版社 : 技術評論社</li>
+            <li>発売日 : 2017/11/25</li>
+          </ul>
+        </dvi>
+      </dvi>
+    </section>
+  </div>
+</main>
+<footer>
+  <div class="footer-container">
+    <div class="next"><a href="./2021-02-28.html">&lt;&lt; 連結子会社の売却損益計算(1)</a></div>
+    <div class="prev"><a href="./2021-02-21.html">Webサーバを作る &gt;&gt;</a></div>
+    <div class="top"><a href="#">トップへ戻る</a></div>
+    <div class="copyright">
+      <small>Copyright(C)iBean, Allright Reserved.</small>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>連結子会社の売却損益計算：単純なケース</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="icon" href="../favicon.ico">
+</head>
+<body>
+<header>
+  <div class="header-container">
+    <h1><a href="../index.html">iBean</a></h1>
+    <div class="aboutme"><a href="../about/index.html">About me</a></div>
+  </dif>
+</header>
+<main>
+  <div class="card">
+    <h1>連結子会社の売却損益計算：単純なケース</h1>
+    <h5>
+      <time datetime="2021-02-28">2021-02-28</time>
+    </h5>
+    <div class="kijicat">
+      <ul>
+        <li>会計/経理</li>
+      </ul>
+    </div>
+    <section>
+      <p>連結決算の仕事の中で最も難しい処理は何かと聞かれたら、子会社の売却損益の計算だと私は答えます。もちろん、子会社の程度にもより、歴史の浅い設立出資した連結子会社の売却であれば大した手間はかからないでしょう。しかし、</p>
+      <ul>
+      <li>買収を行って子会社となり、</li>
+      <li>組織再編のためグループ会社間で株式を何度も譲渡し、</li>
+      <li>多数の未実現損益の取消しを行っている会社の株式を、</li>
+      <li>数度の売却を経て連結除外する</li>
+      </ul>
+      <p>という状況は、経理に携わる人間にとって悪夢以外の何ものでもありません。</p>
+      <p>子会社の売却自体がまれな取引であるうえ、それが複雑怪奇な処理となれば、処理が終わった瞬間に何をしたのか忘れてしまうでしょう。そして、数年後に同じイベントが起こって愕然としてしまうのです。そんな困った状況にならないために、子会社の売却損益を求めるにあたっての基礎をメモしておこうと思います。</p>
+      <h2>もっとも簡単な状況</h2>
+      <h3>BSと仕訳から処理の流れを追う</h3>
+      <p>子会社の売却処理で、簡単なのはグループが設立した歴史の浅い会社の売却になるのではないでしょうか。簡単な数値例を使って、処理の流れを見ていきます。</p>
+      <ul>
+      <li>親会社（P社）が子会社（S社）を100%出資でX0年の期末に設立</li>
+      <li>設立時点の資本金は200</li>
+      <li>X1年の期末を迎え１年間でP社：100、S社：10の純利益を得た</li>
+      </ul>
+      <p>X0年とX1年のP社、S社のBSと連結BSは以下の形になっているとします。</p>
+      <hr>
+      <h4>X0年 期末BS</h4>
+      <div class="company2" style="width: 737px;">
+        <!-- BS for P -->
+        <table class="simple_bs">
+          <thead>
+            <tr>
+              <td class="bs_company_name" colspan="4">P社</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="bs_act">資産</td>
+              <td class="bs_amt_left">1,000</td>
+              <td class="bs_act">資本</td>
+              <td class="bs_amt">1,200</td>
+            </tr>
+            <tr>
+              <td class="bs_act">S社株式</td>
+              <td class="bs_amt_left">200</td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- BS for S -->
+        <table class="simple_bs">
+          <thead>
+            <tr>
+              <td class="bs_company_name" colspan="4">S社</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="bs_act">資産</td>
+              <td class="bs_amt_left">200</td>
+              <td class="bs_act">資本</td>
+              <td class="bs_amt">200</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td class="bs_amt_left"></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- Consolidated BS -->
+      <table class="simple_bs">
+        <thead>
+          <tr>
+            <td class="bs_company_name" colspan="4">連結</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="bs_act">資産</td>
+            <td class="bs_amt_left">1,200</td>
+            <td class="bs_act">資本</td>
+            <td class="bs_amt">1,200</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td class="bs_amt_left"></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+      <h4>【連結修正仕訳】</h4>
+      <table class="journal_entry">
+        <thead>
+          <tr>
+            <td class="je_memo">投資と資本の相殺消去</td>
+            <td class="je_dr">借方</td>
+            <td class="je_cr">貸方</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="je_dract">資本</td>
+            <td class="je_amt">200</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="je_cract">S社株式</td>
+            <td></td>
+            <td class="je_amt">200</td>
+          </tr>
+        </tbody>
+      </table>
+      <h4>【連結精算表】</h4>
+      <div style="overflow-x: auto; width: 737px;">
+        <table class="worksheet">
+          <thead>
+            <tr>
+              <td style="width: 120px; border-bottom: 1px solid #535353;"></td>
+              <td style="width: 60px; border-bottom: 1px solid #535353;">P社</td>
+              <td style="width: 60px; border-bottom: 1px solid #535353;">S社</td>
+              <td style="width: 60px; border-bottom: 1px solid #535353;">合計</td>
+              <td style="width: 60px; border-bottom: 1px solid #535353;">開始</td>
+              <td style="width: 60px; border-bottom: 1px solid #535353;">連結</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>資産</td>
+              <td style="text-align: right;">1,000</td>
+              <td style="text-align: right;">200</td>
+              <td style="text-align: right;">1,200</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">1,200</td>
+            </tr>
+            <tr>
+              <td>S社株式</td>
+              <td style="text-align: right;">200</td>
+              <td style="text-align: right;">0</td>
+              <td style="text-align: right;">200</td>
+              <td style="text-align: right;">(200)</td>
+              <td style="text-align: right;">0</td>
+            </tr>
+            <tr>
+              <td>資本</td>
+              <td style="text-align: right;">1,200</td>
+              <td style="text-align: right;">200</td>
+              <td style="text-align: right;">1,400</td>
+              <td style="text-align: right;">(200)</td>
+              <td style="text-align: right;">1,200</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <hr>
+      <h4>X1年 期末BS</h4>
+      <div class="company2" style="width: 737px;">
+        <!-- BS for P -->
+        <table class="simple_bs">
+          <thead>
+            <tr>
+              <td class="bs_company_name" colspan="4">P社</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="bs_act">資産</td>
+              <td class="bs_amt_left">1,100</td>
+              <td class="bs_act">資本</td>
+              <td class="bs_amt">1,200</td>
+            </tr>
+            <tr>
+              <td class="bs_act">S社株式</td>
+              <td class="bs_amt_left">200</td>
+              <td class="bs_act">利益剰余金</td>
+              <td class="bs_amt">100</td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- BS for S -->
+        <table class="simple_bs">
+          <thead>
+            <tr>
+              <td class="bs_company_name" colspan="4">S社</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="bs_act">資産</td>
+              <td class="bs_amt_left">210</td>
+              <td class="bs_act">資本</td>
+              <td class="bs_amt">200</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td class="bs_amt_left"></td>
+              <td class="bs_act">利益剰余金</td>
+              <td class="bs_amt">10</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- Consolidated BS -->
+      <table class="simple_bs">
+        <thead>
+          <tr>
+            <td class="bs_company_name" colspan="4">連結</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="bs_act">資産</td>
+            <td class="bs_amt_left">1,310</td>
+            <td class="bs_act">資本</td>
+            <td class="bs_amt">1,200</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td class="bs_amt_left"></td>
+            <td class="bs_act">利益剰余金</td>
+            <td class="bs_amt">110</td>
+          </tr>
+        </tbody>
+      </table>
+      <h4>【連結修正仕訳】</h4>
+      <table class="journal_entry">
+        <thead>
+          <tr>
+            <td class="je_memo">投資と資本の相殺消去</td>
+            <td class="je_dr">借方</td>
+            <td class="je_cr">貸方</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="je_dract">資本</td>
+            <td class="je_amt">200</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="je_cract">S社株式</td>
+            <td></td>
+            <td class="je_amt">200</td>
+          </tr>
+        </tbody>
+      </table>
+      <h4>【連結精算表】</h4>
+      <img src="../img/2021/2021-02-28_X1WS.png" alt="X1BS">
+      <hr>
+      <p>ここまでは、特に問題ないと思います。では、この会社をX1年の期末に売却した時の連結上の原価（＝「連結上の簿価」）はいくらになるでしょうか？</p>
+      <ul>
+        <li>P社の単体決算上は、子会社株式の簿価（200）が売却時の原価となる</li>
+        <li>連結上は、S社がX1年に10を稼いでいるため原価は単体よりも10大きくなる</li>
+      </ul>
+      <p>よって、210が連結上の簿価となります。ポイントは、子会社が連結されていた時にどれだけ剰余金を積み増したかになります。売却時の連結仕訳は次の通りとなります。</p>
+
+      <table class="journal_entry">
+        <thead>
+          <tr>
+            <td class="je_memo">開始仕訳の振り戻し</td>
+            <td class="je_dr">借方</td>
+            <td class="je_cr">貸方</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="je_dract">S社株式</td>
+            <td class="je_amt">200</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="je_cract">資本</td>
+            <td></td>
+            <td class="je_amt">200</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="journal_entry">
+        <thead>
+          <tr>
+            <td class="je_memo">S社BSの除外</td>
+            <td class="je_dr">借方</td>
+            <td class="je_cr">貸方</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="je_dract">資本</td>
+            <td class="je_amt">200</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="je_dract">利益剰余金-除外</td>
+            <td class="je_amt">10</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="je_cract">資産</td>
+            <td></td>
+            <td class="je_amt">210</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="journal_entry">
+        <thead>
+          <tr>
+            <td class="je_memo">売却損益の調整</td>
+            <td class="je_dr">借方</td>
+            <td class="je_cr">貸方</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="je_dract">子会社売却損益</td>
+            <td class="je_amt">10</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="je_cract">利益剰余金-除外</td>
+            <td></td>
+            <td class="je_amt">10</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>この最後の仕訳が重要となります。S社が連結子会社であった期間に計上した純利益が、連結上の売却損益の調整額となります。従って、連結子会社を売却した時の損益は、<br>
+        <hr>&nbsp;&nbsp;<strong>単体上の売却損益 － 子会社の取得後剰余金</strong><hr><br>
+        で求めることができます。</p>
+      <h3>例）S社を240で売却した場合の損益計算</h3>
+      <p>S社がX1年末に240で売却された場合の売却損益を見ていきます。まず、P社単体決算では売却額240に対して、S社株式の簿価は200なので40の売却損益を計上します。一方、連結では上の「売却損益の調整」仕訳にある通り、子会社売却損益を10減額する仕訳が入っています。よって、40 - 10 = 30が連結決算での子会社売却損益となります。</p>
+      <p>下図が240で売却した場合の連結精算表です。S社を売却したので、P社単体と連結のBS残高が一致しています。</p>
+      <img src="../img/2021/2021-02-28_final.png" alt="ws_final">
+      <p>最も単純化したケースを見てみましたが、この場合でもそれなりの仕訳が発生しています。最初に記載したような複雑な状況になると仕訳の数も増えていき、理解が難しくなっていきます。（つづく）</p>
+    </section>
+	</div>
+</main>
+<footer>
+  <div class="footer-container">
+    <div class="next"><a href="./2021-03-03.html">&lt;&lt; 連結子会社の売却損益計算(2)</a></div>
+    <div class="prev"><a href="./2021-02-22.html">ブロック付きHash.new &gt;&gt;</a></div>
+    <div class="top"><a href="#">トップへ戻る</a></div>
+    <div class="copyright">
+      <small>Copyright(C)iBean, Allright Reserved.</small>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

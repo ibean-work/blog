@@ -1,0 +1,349 @@
+* {
+  box-sizing: border-box;
+}
+img.fit-img {
+  max-width: 100%;
+}
+.full-img {
+  width: 100%;
+  white-space: nowrap;
+  overflow-x: auto;
+}
+body {
+  font-family: "メイリオ", "Meiryo", "Arial";
+  padding: 0px;
+  margin: 0px;
+}
+a {
+  color: #4a9ae1;
+  text-decoration: none
+}
+/* 引用文 */
+blockquote {
+  border-left: 0.25rem solid #e5e5e5;
+  color: #979797;
+  margin: .8rem 0;
+  padding: .5rem 1rem
+}
+blockquote p:last-child {
+  margin-bottom: 0
+}
+@media (min-width: 600px) {
+  blockquote {
+    padding: 0 5rem 0 1.25rem
+  }
+}
+header {
+  padding-top: 5px;
+  height: 70px;
+  border-bottom: 1px solid #e8e8e8;
+}
+header a {
+  color: #000;
+  text-decoration: none;
+}
+header h1 {
+  font-size: 32pt;
+  margin: 0px;
+}
+.header-container {
+  max-width: 800px;
+  margin: 0px auto 0;
+  padding-left: 32px;
+  height: 75px;
+  display: flex;
+  justify-content: space-between;
+}
+.aboutme {
+  padding-top: 16px;
+  padding-right: 32px;
+}
+/* カタログ */
+.catalogue-item {
+  border-bottom: 1px solid #e5e5e5;
+  color: #555;
+  display: block;
+  padding: 2rem 0
+}
+.catalogue-item:hover .catalogue-line, .catalogue-item:focus .catalogue-line {
+  width: 5rem
+}
+.catalogue-item:last-child {
+  border: 0
+}
+.catalogue-time {
+  color: #aaa;
+  font-family: Palatino, "Palatino LT STD", "Palatino Linotype", "Book Antiqua", "Georgia", serif;
+  letter-spacing: .5px
+}
+.catalogue-title {
+  color: #353535;
+  display: block;
+  font-family: "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: .5rem 0
+}
+.catalogue-line {
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+  border-top: 0.2rem solid #353535;
+  display: block;
+  width: 2rem
+}
+/*****main*****/
+main {
+  max-width: 800px;
+  margin: 0px auto 0px;
+}
+section {
+  margin-top: 32px;
+}
+h1 {
+  font-size: 150%;
+}
+h1 a {
+  color: #000;
+  text-decoration: none;
+}
+h2 {
+  margin-top: 32px;
+  padding-left: 10px;
+  border-left: solid 4px #558866;
+  font-size: 140%;
+}
+h3 {
+  font-size: 120%;
+}
+p {
+  line-height: 1.8;
+}
+li {
+  line-height: 1.8;
+}
+table {
+  table-layout: fixed;
+}
+th {
+  font-weight: normal;
+  border-bottom: 1px solid black;
+}
+.center {
+  text-align: center;
+}
+.card {
+  background-color: white;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+/* 記事カテゴリの装飾 */
+.kijicat {
+  margin-top: -10px;
+}
+.kijicat ul {
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+}
+.kijicat li {
+  display: block;
+  margin-right: 5px;
+  padding: 3px 5px;
+  border-radius: 2px;
+  background-color: #90ad1c;
+  color: #ffffff;
+  font-size: 12px;
+  text-decoration: none;
+}
+.kijicat li:hover {
+  background-color: #b4d823;
+}
+.kijicat ul:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.kijicat li {
+  float: left;
+  width: auto;
+}
+/* シンタックスハイライト */
+.code-frame {
+  background-color: #272822;
+  color: #e3e3e3;
+  font-family: Menlo, Consolas, Monaco, monospace, sans-serif;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 10px;
+  white-space: nowrap;
+  overflow-x: auto;
+}
+pre, code {
+  font-family:
+    'Noto Sans Mono CJK JP',
+    'Source Han Code JP',
+    'Ricty',
+    'Ricty Diminished',
+    'Ricty Diminished Discord',
+    'Myrica M',
+    'MyricaM M',
+    'Rounded M+ 1m regular',
+    'Rounded M+ 2m regular',
+    'Rounded Mgen+ 1m regular',
+    'Rounded Mgen+ 2m regular',
+    'Migu 1M',
+    'Migu 2M',
+    'VL ゴシック',
+    'M+ 1m',
+    'M+ 2m',
+    'Yutapon coding Regular',
+    SFMono-Regular,
+    Consolas,
+    'Roboto Mono',
+    'Courier New',
+    Meiryo,
+    monospace;
+}
+pre code {
+  background-color: transparent;
+  color: inherit;
+  padding: 0
+}
+code {
+  background-color: #f9f9f9;
+  border-radius: 3px;
+  color: #bf616a;
+  padding: .25em .5em;
+  white-space: pre-wrap
+}
+.highlight {
+  width: 737px;
+  line-height: 1.3;
+}
+/* Amazon */
+.amazon-box {
+  border: solid 1px #dbdbdb;
+  box-shadow: 2px 3px 8px -5px rgba(0,0,0,.25);
+  display: flex;
+  padding: 12px 12px 12px 12px;
+}
+.amazon-content {
+  margin-left: 20px;
+}
+.amazon-content a {
+  color: #000;
+  font-size: 120%;
+  text-decoration: none;
+}
+.amazon-content ul {
+  list-style: none;
+  margin: 0 0 0 0;
+  padding-left: 0px;
+}
+
+footer {
+  padding-bottom: 10px;
+}
+.footer-container {
+  max-width: 800px;
+  margin: 0px auto 0;
+  padding: 0 32px 0 32px;
+}
+.next {
+  text-align: left;
+  margin-bottom: 5px;
+}
+.prev {
+  text-align: right;
+  margin-bottom: 5px;
+}
+.top {
+  text-align: center;
+}
+.copyright {
+  margin-top: 5px;
+  text-align: center;
+}
+
+/* 文字の色 */
+.bright_red {
+  color: #FF6D6D;
+}
+.bright_blue {
+  color: #3465a4;
+}
+.bright_purple {
+  color: #a1467e;
+}
+/************************************************
+/*** 経理系の設定
+/************************************************
+/* simple bs format */
+table.simple_bs {
+  border-collapse: collapse;
+  margin-right: 30px;
+  margin-bottom: 30px;
+}
+thead {
+  text-align: center;
+	border-bottom: 1px solid #595959;
+	border-collapse: collapse;
+}
+td.bs_act {
+  padding: 3px 0px 3px 3px;
+  text-align: left;
+  width: 120px;
+}
+td.bs_amt {
+  text-align: right;
+  padding: 3px 10px 3px 0px;
+	width: 60px;
+	height: 20px;
+}
+td.bs_amt_left {
+  text-align: right;
+  padding: 3px 10px 3px 0px;
+  border-right: 1px solid #595959;
+  border-collapse: collapse;
+	width: 60px;
+	height: 20px;
+}
+td.bs_company_name {
+  border-bottom: 1px solid #595959;
+  border-collapse: collapse;
+  font-weight: bold;
+}
+.company2 {
+  display: flex;
+  overflow-x: auto;
+}
+table.worksheet {
+  border-collapse: collapse;
+  margin-bottom: 12px;
+}
+/* journal entry */
+.journal_entry {
+  border-collapse: collapse;
+  margin-bottom: 24px;
+}
+td.je_memo {
+  border-bottom: 1px solid #595959;
+  padding: 3px;
+  text-align: left;
+  width: 260px;
+}
+td.je_dr, td.je_cr {
+  border-bottom: 1px solid #595959;
+  text-align: center;
+  width: 60px;
+}
+td.je_dract {
+  padding: 3px;
+}
+td.je_cract {
+  padding-left: 38px;
+}
+td.je_amt {
+  text-align: right;
+}

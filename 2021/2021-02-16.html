@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ruby3.0使ってみました</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="icon" href="../favicon.ico">
+</head>
+<body>
+<header>
+  <div class="header-container">
+    <h1><a href="../index.html">iBean</a></h1>
+    <div class="aboutme"><a href="../about/index.html">About me</a></div>
+  </dif>
+</header>
+<main>
+  <div class="card">
+    <h1>Ruby3.0使ってみました</h1>
+    <h5>
+      <time datetime="2021-02-16">2021-02-16</time>
+    </h5>
+    <div class="kijicat">
+      <ul>
+        <li>プログラミング</li>
+      </ul>
+    </div>
+    <section>
+      <h2 id="webrickがない">webrickがない</h2>
+      <p>最近簡単なツールをGUIで作りたくてPowershell + XAMLで書いたのですが、Powershellの文法になじめず違和感を覚えます。特に、変数に$を付けるのが面倒でよく書き忘れます。自動的に補完してくれるようなエディタ機能もあるのかもしれませんが、探していません。</p>
+      <p>ツールは完成したのですが、その後、Rubyでツール起動時にWebサーバを起動し、HTMLで表示すればいいのではないかと、ふと思いました。以前に<a href="https://amzn.to/2Zn1idG">『作りながら学ぶRuby入門 第2版』</a>という本を読んだ際に、Rubyでローカルサーバを作る方法を学んだので、それを使ってWebをGUI代わりにしようという魂胆です。</p>
+      <p>早速、最新版のRuby3.0をダウンロードして、<code>irb</code>を立ち上げ、<code>require 'webrick'</code>したのですが、エラーが出ます。</p>
+      <code>cannot load such file -- webrick</code>
+      <p>なぜ？Rubyをインストールしたディレクトリに潜り、<strong>webrick</strong>で検索をかけてみましたがヒットしません。どうやらインストールされていなようです。Googleで <strong>ruby3.0 webrick</strong> を検索すると、Ruby3.0リリースノートにたどり着き、「その他の注目すべき 2.7 からの変更点」に目的の文章を発見しました。</p>
+      <blockquote>
+        以下のライブラリは標準添付ライブラリから削除されました。3.0 以降で使いたい場合は rubygems から利用してください。
+        <ul>
+          <li>sdbm</li>
+          <li><strong>webrick</strong></li>
+          <li>net-telnet</li>
+          <li>xmlrpc</li>
+        </ul>
+      </blockquote>
+      <p>ガーン😨。どうやら標準ライブラリから削除されてしまったようです。いつもならここで気持ちを切り替えて即座に<code>gem install webrick</code>するのですが、今回はなぜ削除されてしまったか知りたくなり、リンクをたどりました。</p>
+      <blockquote>
+      <p>I propose to move webrick to bundled gems or remove it from stdlib of ruby.<br>
+      We have several vulnerability issues in webrick gem.<br>
+      <a href="https://www.ruby-lang.org/en/news/2020/09/29/http-request-smuggling-cve-2020-25613/">https://www.ruby-lang.org/en/news/2020/09/29/http-request-smuggling-cve-2020-25613/</a><br>
+      The ruby core team don&rsquo;t have enough time to handle them. We should remove webrick from default gems at least.</p>
+      </blockquote>
+      <p>（webrickをbundled gemsもしくは標準ライブラリから削除することを提案します。webrickにはいくつかの脆弱性の問題があるからです。(URL参照)。Rubyのコアチームはこの問題に対処するための十分な時間がありません。なので、webrickを少なくともデフォルトのgemから除外すべきです。）</p>
+      <p>なるほど、webrickは色々と問題を抱えていたようです。こんなことを書かれると、インストールするのも腰が引けてくるのですが、ローカルで使うのであれば脆弱性の問題など気にしても意味がないので気にしないことにします。</p>
+      <h2 id="gui-vs-web">GUI vs Web</h2>
+      <p>Windows環境でしか使わないことを考えれば、GUIライブラリでも良いのだと思い、RubyのGUIライブラリを調べてみましたが、どれもいまいちパッとしません。今現在も開発が続いているのは、自分になじみのない<a href="https://rubygems.org/gems/gtk3">gtk3</a>や<a href="https://rubygems.org/gems/fxruby/">fxruby</a>というもので、少しかじったことのあるRubytkやwxRubyはもう開発が止まってそうな感じです。Rubyの世界では、明らかにGUIアプリは流行っていないようです（Pythonなら候補がいっぱいあるのですが）。</p>
+      <p>RubyといえばWebアプリ！GUIは忘れましょう。</p>
+      <p>というわけで、今回は大人しく<code>gem install webrick</code>しておきます。</p>
+    </section>
+  </div>
+</main>
+<footer>
+  <div class="footer-container">
+    <div class="next"><a href="./2021-02-17.html">&lt;&lt; Rubyライブラリの種類</a></div>
+    <div class="prev"><a href="./2021-01-31.html">増減科目について &gt;&gt;</a></div>
+    <div class="top"><a href="#">トップへ戻る</a></div>
+    <div class="copyright">
+      <small>Copyright(C)iBean, Allright Reserved.</small>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

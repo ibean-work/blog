@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CSVを読み書きする</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="icon" href="../favicon.ico">
+</head>
+<body>
+<header>
+  <div class="header-container">
+    <h1><a href="../index.html">iBean</a></h1>
+    <div class="aboutme"><a href="../about/index.html">About me</a></div>
+  </dif>
+</header>
+<main>
+  <div class="card">
+    <h1>CSVを読み書きする</h1>
+    <h5>
+      <time datetime="2021-02-18">2021-02-18</time>
+    </h5>
+    <div class="kijicat">
+      <ul>
+        <li>プログラミング</li>
+      </ul>
+    </div>
+    <section>
+      <p>経理の仕事をしているとCSVを扱うことが良くあります。どんなシステムでも大抵はCSV出力をサポートしており、CSVの加工を自動化できれば業務効率が改善されることは間違いありません。Rubyには<code>CSV</code>クラスが標準で用意されており、CSVファイルの加工や集計などが簡単にできるようになっています。今回は以下のCSVファイルを用意して、CSVクラスの利用方法について勉強してみました。</p>
+      <div class="code-frame">
+        <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">P社,現金,750
+P社,売掛金,500
+P社,貸付金,200
+P社,子会社株式,250
+P社,買掛金,-400
+P社,資本金,-1000
+P社,利益剰余金,-300
+A社,現金,500
+A社,売掛金,100
+A社,借入金,-200
+A社,資本金,-300
+A社,利益剰余金,-100
+B社,現金,100
+B社,資本金,-50
+B社,利益剰余金,-50</code></pre>
+        </div>
+      </div>
+      <h2 id="csvファイルを読み込む">CSVファイルを読み込む</h2>
+      <p>今回読込むCSVにはヘッダーがついていないので、データを読み込む際にヘッダーを付与して読み込むことにします。<code>CSV#read</code>メソッドの<code>:headers</code>オプションに項目名の配列を渡せば、CSVデータを読み込む際に指定したヘッダーを付与してくれます。</p>
+      <p>また、今回は会社ごとの帳簿データについて、<code>Book</code>クラスを作ってそこに格納することにします。</p>
+      <div class="code-frame">
+        <div class="highlight">
+          <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">require <span style="color:#e6db74">&#39;csv&#39;</span>
+      
+<span style="color:#75715e"># 会社ごとの帳簿データを格納するクラス</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Book</span>
+  <span style="color:#66d9ef">attr_reader</span> <span style="color:#e6db74">:name</span>
+  <span style="color:#66d9ef">attr_accessor</span> <span style="color:#e6db74">:data</span>
+
+  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">initialize</span>(name, account, amount)
+    @name <span style="color:#f92672">=</span> name
+    @data <span style="color:#f92672">=</span> {account <span style="color:#f92672">=&gt;</span> amount}
+  <span style="color:#66d9ef">end</span>
+
+  <span style="color:#75715e"># 全てのBS科目を足して貸借差額を確認する</span>
+  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">balance_check</span>
+    sum <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+    @data<span style="color:#f92672">.</span>each <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>key, value<span style="color:#f92672">|</span>
+      sum <span style="color:#f92672">+=</span> value
+    <span style="color:#66d9ef">end</span>
+    sum
+  <span style="color:#66d9ef">end</span>
+<span style="color:#66d9ef">end</span>
+
+csv_data <span style="color:#f92672">=</span> <span style="color:#66d9ef">CSV</span><span style="color:#f92672">.</span>read(<span style="color:#e6db74">&#39;sample.csv&#39;</span>, <span style="color:#e6db74">headers</span>: <span style="color:#f92672">[</span><span style="color:#e6db74">&#39;name&#39;</span>, <span style="color:#e6db74">&#39;account&#39;</span>, <span style="color:#e6db74">&#39;amount&#39;</span><span style="color:#f92672">]</span>)
+cons <span style="color:#f92672">=</span> <span style="color:#f92672">[]</span>
+
+<span style="color:#75715e"># csvデータを１行ずつ読み込み各社の帳簿データを登録する</span>
+csv_data<span style="color:#f92672">.</span>each <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>row<span style="color:#f92672">|</span>
+  corp <span style="color:#f92672">=</span> cons<span style="color:#f92672">.</span>find { <span style="color:#f92672">|</span>i<span style="color:#f92672">|</span> i<span style="color:#f92672">.</span>name <span style="color:#f92672">==</span> row<span style="color:#f92672">[</span><span style="color:#e6db74">&#39;name&#39;</span><span style="color:#f92672">]</span> }
+  <span style="color:#66d9ef">if</span> corp <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span>
+    cons <span style="color:#f92672">&lt;&lt;</span> <span style="color:#66d9ef">Book</span><span style="color:#f92672">.</span>new(row<span style="color:#f92672">[</span><span style="color:#e6db74">&#39;name&#39;</span><span style="color:#f92672">]</span>, row<span style="color:#f92672">[</span><span style="color:#e6db74">&#39;account&#39;</span><span style="color:#f92672">]</span>, row<span style="color:#f92672">[</span><span style="color:#e6db74">&#39;amount&#39;</span><span style="color:#f92672">].</span>to_i)
+  <span style="color:#66d9ef">else</span>
+    corp<span style="color:#f92672">.</span>data<span style="color:#f92672">[</span>row<span style="color:#f92672">[</span><span style="color:#e6db74">&#39;account&#39;</span><span style="color:#f92672">]]</span> <span style="color:#f92672">=</span> row<span style="color:#f92672">[</span><span style="color:#e6db74">&#39;amount&#39;</span><span style="color:#f92672">].</span>to_i
+  <span style="color:#66d9ef">end</span>
+<span style="color:#66d9ef">end</span>
+
+<span style="color:#75715e"># 読込んだデータに貸借差額がないことを確認する</span>
+cons<span style="color:#f92672">.</span>each <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>corp<span style="color:#f92672">|</span>
+  puts <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">#{</span>corp<span style="color:#f92672">.</span>name<span style="color:#e6db74">}</span><span style="color:#e6db74">の貸借差額: </span><span style="color:#e6db74">#{</span>corp<span style="color:#f92672">.</span>balance_check<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">end</span></code></pre></div>
+      <p>結果は次の通り。うまく取り込めたようです。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#e6db74">P社の貸借差額</span>: <span style="color:#ae81ff">0</span>
+<span style="color:#e6db74">A社の貸借差額</span>: <span style="color:#ae81ff">0</span>
+<span style="color:#e6db74">B社の貸借差額</span>: <span style="color:#ae81ff">0</span></code></pre>
+        </div>
+      </div>
+      <p>後は<code>Book</code>クラスに様々なチェック用のメソッドを追加していけば、実用的なものになりそうです。
+      上のコードに各社の残高を単純合算する機能を追加してみます。</p>
+      <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"></code></pre></div><h2 id="データ構造に悩む">データ構造に悩む</h2>
+      <p>CSVやExcelのデータを取り込んで業務改善をするアイディアは色々とあるのですが、実際にコーディングする段階になると、まず悩むのがデータ構造です。専門的な勉強をしたことがないので、取り込んだデータをどんな形で保持するのかいつも考えます。今回も、ハッシュの中にハッシュを持たせる形がいいのか、上に書いたような<code>Book</code>クラスを作る方がいいのか、Struct(構造体クラス)を使ってみるのはどうかなどを考えました。</p>
+      <p>自分が個人的にしか使わないツールで、規模も大したことがなく、誰も読まれることもないソースコードなので、見栄えや効率など何も気にせずひたすら書くべきだと分かっているのですが、中々実行に移せません。結局は、単なる経験不足な気がします。</p>
+      <p>競技プログラミングでも始めれば、このあたりの判断ができるようになる気がするので、近々取り組んでみようと思います。</p>
+    </section>
+  </div>
+</main>
+<footer>
+  <div class="footer-container">
+    <div class="next"><a href="./2021-02-21.html">&lt;&lt; Webサーバを作る</a></div>
+    <div class="prev"><a href="./2021-02-17.html">Rubyライブラリの種類 &gt;&gt;</a></div>
+    <div class="top"><a href="#">トップへ戻る</a></div>
+    <div class="copyright">
+      <small>Copyright(C)iBean, Allright Reserved.</small>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

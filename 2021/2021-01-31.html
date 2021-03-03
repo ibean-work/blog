@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>増減科目について</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="icon" href="../favicon.ico">
+</head>
+<body>
+<header>
+  <div class="header-container">
+    <h1><a href="../index.html">iBean</a></h1>
+    <div class="aboutme"><a href="../about/index.html">About me</a></div>
+  </dif>
+</header>
+<main>
+  <div class="card">
+    <h1>増減科目について</h1>
+    <h5>
+      <time datetime="2021-01-31">2021-01-31</time>
+    </h5>
+    <div class="kijicat">
+      <ul>
+        <li>会計/経理</li>
+      </ul>
+    </div>
+    <section>
+      <h2>キャッシュ・フロー計算書、株主資本等変動計算書の自動作成</h2>
+      <p>
+        キャッシュ・フロー計算書（以下、ＣＦ）や株主資本等変動計算書（<u>S</u>tatements of <u>S</u>hareholders' Equity）（以下、ＳＳ）を自動的に作成したいと思うことはありませんか。連結会計システムを使ったことのある人ならわかると思いますが、これらの計算書を自動で作成しようと思ったら、BSの増減を集計するための勘定科目の追加が必要です。
+      </p>
+      <p>
+        例えば、建物勘定（固定資産）を考えてみましょう。建物関連のCF科目をざっと列挙します。
+        <ul>
+          <li>減価償却費（営業CF）</li>
+          <li>固定資産売却損益（営業CF）</li>
+          <li>固定資産の取得による支出（投資CF）</li>
+          <li>固定資産の売却による収入（投資CF）</li>
+        </ul>
+        これだけのCF科目が想定されます。もちろん会社によっては、重要性により集約化/細分化されると思いますが、代表的な科目を記載しました。
+      </p>
+      <p>
+        建物勘定の期首と期末の残高が分かるだけでは、上のCF科目を集計できないことは明らかです。建物勘定の期首から期末にかけての増減が、どのような理由によってどれだけ発生したのかを把握する必要があります。
+      </p>
+      <p>
+        例えば次のような形です。
+      </p>
+      <div tyle="overflow-x: auto">
+        <table style="width: 600px;">
+          <thead>
+            <tr>
+              <td style="border-bottom: 1px solid #595959; width: 90px"></td>
+              <td style="border-bottom: 1px solid #595959; text-align: center; width: 90px">建物</td>
+              <td style="border-bottom: 1px solid #595959; text-align: center;width: 90px">償却累計</td>
+              <td style="text-align: center;">（CF科目）</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="text-align: left;">期首</td>
+              <td style="text-align: right;">1,000</td>
+              <td style="text-align: right;">-300</td>
+            </tr>
+            <tr>
+              <td style="text-align: left;">購入</td>
+              <td style="text-align: right;">500</td>
+              <td style="text-align: right;">-</td>
+              <td style="text-align: left;">　⇒ 固定資産の取得による支出</td>
+            </tr>
+            <tr>
+              <td style="text-align: left;">減価償却</td>
+              <td style="text-align: right;">-</td>
+              <td style="text-align: right;">-200</td>
+              <td style="text-align: left;">　⇒ 減価償却費</td>
+            </tr>
+            <tr>
+              <td style="text-align: left;">売却</td>
+              <td style="text-align: right;">-100</td>
+              <td style="text-align: right;">-</td>
+              <td style="text-align: left;">　⇒（*下の式参照）</td>
+            </tr>
+            <tr>
+              <td style="text-align: left;">期末</td>
+              <td style="text-align: right;">1,400</td>
+              <td style="text-align: right;">-500</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        この情報により、「減価償却費」と「固定資産の取得による支出」の数値を埋めることができます。売却の-100は売却収入額ではなく、引渡した固定資産の簿価です。売却による収入を得るには、
+      </p>
+      <div style="overflow-x: auto;">
+        <hr><div style="margin-left: 16pt; width: 600px;">固定資産の売却による収入　＝　－売却額　＋　固定資産売却損益</div><hr>
+      </div>
+      <p>
+        を計算する必要があります。この場合、PL科目として固定資産売却損益を設定しておく必要があります。上の例の増減科目を使ってCFを作ると次のようになります。なお、売却した固定資産は200で売れた（売却益100）と仮定します。減価償却費-200と合わせて、税引前利益は-100とします。
+      </p>
+      <h4>キャッシュ・フロー計算書</h4>
+      <div style="overflow-x: auto;">
+        <table style=" width: 300px;">
+          <thead>
+            <tr>
+              <td style="border-bottom: 1px solid #595959; width: 180px"></td>
+              <td style="border-bottom: 1px solid #595959; text-align: center; width: 45px">X0期</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>税引前利益</td>
+              <td style="text-align: right;">-100</td>
+            </tr>
+            <tr>
+              <td>減価償却費</td>
+              <td style="text-align: right;">200</td>
+            </tr>
+            <tr>
+              <td style="border-bottom: 1px solid #595959;">固定資産売却損益</td>
+              <td style="text-align: right; border-bottom: 1px solid #595959;">-100</td>
+            </tr>
+            <tr>
+              <td>営業活動によるCF</td>
+              <td style="text-align: right;">0</td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td></td>
+            </tr>            <tr>
+              <td>固定資産の取得による支出</td>
+              <td style="text-align: right;">-500</td>
+            </tr>
+            <tr>
+              <td style="border-bottom: 1px solid #595959;">固定資産の売却による収入</td>
+              <td style="text-align: right; border-bottom: 1px solid #595959;">200</td>
+            </tr>
+            <tr>
+              <td>投資活動によるCF</td>
+              <td style="text-align: right;">-300</td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td></td>
+            </tr> 
+            <tr>
+              <td>現金及び現金同等物の増加額</td>
+              <td style="text-align: right;">-300</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h2>増減科目を設定する際の注意点</h2>
+      <h3>売掛金に増減科目は必要ない</h3>
+      <p>
+        増減科目はすべての勘定科目に必要なわけではありません。例えば、売掛金について考えてみると、その増減は営業CFで使用されるため（営業CFは純額表示となるため）、増加と減少を区別する必要がなく期首と期末の残高さえ分かれば問題ありません。従って、売掛金に増減科目を設定する必要ありません。
+      </p>
+      <h3>未収入金/未払金も増減科目は必要ないが別の検討が必要</h3>
+      <p>
+        未収入金/未払金も増減科目は不要です。しかし、これらの勘定科目は営業CFに加え、投資CF（固定資産購入/売却時の未収/未払など）や財務CF（未収/未払利息）の可能性があるため、それぞれのCF区分に対応したBS科目を作成する必要があります。
+      </p>
+      <h3>固定資産/負債の科目</h3>
+      <p>
+        有形固定資産や無形資産、貸付金、有価証券、負債だと借入金などは増減科目が必要です。これらの科目の増減はほとんどが投資CFか財務CFとなるため、期首と期末残高の増減だけではCFが作れません。増減の内容も科目固有のものが多いため、１つ１つの勘定科目の動きを考えて、それぞれに増減科目を設定する必要があります。
+      </p>
+      <h4>例1. 借入金</h4>
+      <p>借入金の増減は財務CFとなるため純額表示は認められていない（１年内の短期借入金は純額表示できる例外あり）ことから、借入と返済をそれぞれ把握する必要があります。以下では、X1期に借入金100の返済と、新規で200の借入をした場合について見て行きます。</p>
+      <table class="journal_entry">
+        <thead>
+          <tr>
+            <td class="je_memo">返済</td>
+            <td class="je_dr">借方</td>
+            <td class="je_cr">貸方</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="je_dract">借入金-返済</td>
+            <td class="je_amt">100</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="je_cract">現預金</td>
+            <td></td>
+            <td class="je_amt">100</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="journal_entry">
+        <thead>
+          <tr>
+            <td class="je_memo">銀行借入</td>
+            <td class="je_dr">借方</td>
+            <td class="je_cr">貸方</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="je_dract">現預金</td>
+            <td class="je_amt">200</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="je_cract">借入金-借入</td>
+            <td></td>
+            <td class="je_amt">200</td>
+          </tr>
+        </tbody>
+      </table>
+      <h4>残高増減表</h4>
+      <table style="margin-bottom: 16px;">
+        <thead>
+          <tr>
+            <td style="border-bottom: 1px solid #595959; width: 90px"></td>
+            <td style="border-bottom: 1px solid #595959; text-align: center; width: 90px">借入金</td>
+            <td style="text-align: center;">（CF科目）</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>期首</td>
+            <td style="text-align: right;">500</td>
+          </tr>
+          <tr>
+            <td>借入</td>
+            <td style="text-align: right;">200</td>
+            <td>　⇒ 借入による収入</td>
+          </tr>
+          <tr>
+            <td>返済</td>
+            <td style="text-align: right;">-100</td>
+            <td>　⇒ 借入金の返済による支出</td>
+          </tr>
+          <tr>
+            <td>期末</td>
+            <td style="text-align: right;">600</td>
+          </tr>
+        </tbody>
+      </table>
+      <h4>キャッシュ・フロー計算書</h4>
+      <table style="margin-bottom: 16px;">
+        <thead>
+          <tr>
+            <td style="border-bottom: 1px solid #595959; width: 200px"></td>
+            <td style="border-bottom: 1px solid #595959; width: 90px">X1期</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>借入による収入</td>
+            <td style="text-align: right;">200</td>
+          </tr>
+          <tr>
+            <td>借入金の返済による支出</td>
+            <td style="text-align: right;">-100</td>
+          </tr>
+          <tr>
+            <td>財務活動によるCF</td>
+            <td style="text-align: right;">100</td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>純資産の部の科目</h3>
+      <p>
+        純資産の部の科目は、CFだけではなくSSでも使用することから、両方の計算書類に使用できるような増減科目の設定が必要となります。期首、増資、減資、配当、振替、その他、期末、などが必要な増減科目となるでしょう。
+      </p>
+      <h4>例2. 資本金、その他資本剰余金</h4>
+      <p>少しおかしな仮定とはなりますが、同じ年に金銭出資（全額、資本金とする）と有償減資（その他資本剰余金からの配当）が行われた場合を見ていきます。資本金から配当を出すことはできないため、その他資本剰余金への振替が発生しています。</p>
+      <table class="journal_entry">
+        <thead>
+          <tr>
+            <td class="je_memo">金銭出資</td>
+            <td class="je_dr">借方</td>
+            <td class="je_cr">貸方</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="je_dract">現預金</td>
+            <td class="je_amt">1,000</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="je_cract">資本金-増資</td>
+            <td></td>
+            <td class="je_amt">1,000</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="journal_entry">
+        <thead>
+          <tr>
+            <td class="je_memo">振替（有償減資）</td>
+            <td class="je_dr">借方</td>
+            <td class="je_cr">貸方</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="je_dract">資本金-振替</td>
+            <td class="je_amt">500</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="je_cract">その他資本剰余金-振替</td>
+            <td></td>
+            <td class="je_amt">500</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="journal_entry">
+        <thead>
+          <tr>
+            <td class="je_memo">配当（有償減資）</td>
+            <td class="je_dr">借方</td>
+            <td class="je_cr">貸方</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="je_dract">その他資本剰余金-配当</td>
+            <td class="je_amt">500</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="je_cract">現預金</td>
+            <td></td>
+            <td class="je_amt">500</td>
+          </tr>
+        </tbody>
+      </table>
+      <h4>残高増減表（＝株主資本等変動計算書）</h4>
+      <div style="overflow-x: auto;">
+      <table style="margin-bottom: 16px; width: 600px;">
+        <thead>
+          <tr>
+            <td style="border-bottom: 1px solid #595959; width: 90px"></td>
+            <td style="border-bottom: 1px solid #595959; text-align: center; vertical-align: middle; width: 90px">資本金</td>
+            <td style="border-bottom: 1px solid #595959; text-align: center; width: 90px">その他資本剰余金</td>
+            <td style="text-align: center;">（CF科目）</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>期首</td>
+            <td style="text-align: right;">2,000</td>
+            <td style="text-align: right;">200</td>
+          </tr>
+          <tr>
+            <td>増資</td>
+            <td style="text-align: right;">1,000</td>
+            <td style="text-align: right;">-</td>
+            <td>　⇒ 株式の発行による収入</td>
+          </tr>
+          <tr>
+            <td>配当</td>
+            <td style="text-align: right;">-</td>
+            <td style="text-align: right;">-500</td>
+            <td>　⇒ 配当金の支払額</td>
+          </tr>
+          <tr>
+            <td>振替</td>
+            <td style="text-align: right;">-500</td>
+            <td style="text-align: right;">500</td>
+          </tr>
+          <tr>
+            <td>期末</td>
+            <td style="text-align: right;">2,500</td>
+            <td style="text-align: right;">200</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+      <h4>キャッシュ・フロー計算書</h4>
+      <table style="margin-bottom: 16px;">
+        <thead>
+          <tr>
+            <td style="border-bottom: 1px solid #595959; width: 200px"></td>
+            <td style="border-bottom: 1px solid #595959; text-align: center; width: 90px">X2期</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>株式の発行による収入</td>
+            <td style="text-align: right;">1,000</td>
+          </tr>
+          <tr>
+            <td>配当金の支払額</td>
+            <td style="text-align: right;">-500</td>
+          </tr>
+          <tr>
+            <td>財務活動によるCF</td>
+            <td style="text-align: right;">500</td>
+          </tr>
+        </tbody>
+      </table>
+      <h2>キャッシュ・フロー科目への連携</h2>
+      <p>
+        ここまで、増減科目の役割について見てきました。増減科目があればCFやSSのどの科目に連携させるかが定まり、CF, SSの自動作成が可能となります。例えば、例2.で見たようにSSの作成は純資産の部の増減科目を拾うことですぐに作成することができます。
+      </p>
+      <p>
+        しかしながら、CFの自動作成は増減科目を定めただけでは道半ばといったところです。なぜならば、CFを作成するためには全ての勘定科目およびそれに付随する増減科目を、CF科目に紐づける作業が必要だからです。それなりの規模の会社であれば、連結決算用のBS科目だけでも100は超える数になるはずです。その１つ１つに増減科目を付与した場合、勘定×増減科目の組み合わせは元の科目数の数倍に膨れ上がります。そのため、相当な時間をかけてCF科目への紐づけ作業が必要となり、検証も一筋縄では行かないでしょう。
+      </p>
+      <p>
+        その分、見返りも大きくCF作成の手間が不要になる、BS, PLの締めと同時にCFが出来上がる、など何度もやる作業だからこそ自動化による効率化は大きなものとなります。
+      </p>
+    </section>
+  </div>
+</main>
+<footer>
+  <div class="footer-container">
+    <div class="next"><a href="./2021-02-16.html">&lt;&lt; Ruby3.0使ってみました</a></div>
+    <div class="prev"><a href="./2021-01-14.html">Excelで組替表を作る &gt;&gt;</a></div>
+    <div class="top"><a href="#">トップへ戻る</a></div>
+    <div class="copyright">
+      <small>Copyright(C)iBean, Allright Reserved.</small>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

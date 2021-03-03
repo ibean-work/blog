@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Webサーバを作る</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="icon" href="../favicon.ico">
+</head>
+<body>
+<header>
+  <div class="header-container">
+    <h1><a href="../index.html">iBean</a></h1>
+    <div class="aboutme"><a href="../about/index.html">About me</a></div>
+  </dif>
+</header>
+<main>
+  <div class="card">
+    <h1>CSVを読み書きする</h1>
+    <h5>
+      <time datetime="2021-02-21">2021-02-21</time>
+    </h5>
+    <div class="kijicat">
+      <ul>
+        <li>プログラミング</li>
+      </ul>
+    </div>
+    <section>
+      <p>以前に、webrickが標準ライブラリから外されていることを知って嘆きましたが、単純なHTMLをブラウザに返すだけのサーバならば、簡単に作れるのではないかという考えに至りました。ないなら自分で作ってしまおう。早速、調査開始です。通信を行うにはソケットプログラミングが必要ということは聞いたことがあったので、Webサーバやソケットという単語で検索をかけ必要な知識をかき集めてきました。</p>
+      <h2 id="mytcpserver">MyTCPServer</h2>
+      <p>socketライブラリにあるTCPServerクラスを使えばブラウザからのリクエストに応えるサーバが作れるそうです。WebサーバはブラウザにHTMLを送る際に<code>HTTP/1.1 200</code>というステータス行（１行目）や、<code>Content-Type: text/html</code>というメッセージヘッダ（２行目から空行まで）を先頭に付してから本体のHTMLを送信する必要があります。ここに書いた例は最も単純化されたもので、本格的なサーバではもっと詳細な情報を加えてブラウザに送り返しています。</p>
+      <p>いろいろ書きましたが、簡単なWebサーバ<code>MyTCPSever</code>クラスを作って動作を確認してみます。</p>
+      <div class="code-frame">
+        <div class="highlight">
+          <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">require <span style="color:#e6db74">&#39;socket&#39;</span>
+      
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyTCPServer</span>
+  <span style="color:#66d9ef">attr_reader</span> <span style="color:#e6db74">:server</span>, <span style="color:#e6db74">:content_type</span>
+
+  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">initialize</span>(port<span style="color:#f92672">=</span><span style="color:#ae81ff">8080</span>)
+    @server <span style="color:#f92672">=</span> <span style="color:#66d9ef">TCPServer</span><span style="color:#f92672">.</span>new port
+    @content_type <span style="color:#f92672">=</span> {
+      <span style="color:#e6db74">&#39;.html&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;text/html&#39;</span>,
+      <span style="color:#e6db74">&#39;.css&#39;</span>  <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;text/css&#39;</span>,
+      <span style="color:#e6db74">&#39;.ico&#39;</span>  <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;image/png&#39;</span>,
+      <span style="color:#e6db74">&#39;.png&#39;</span>  <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;image/png&#39;</span>
+    }
+  <span style="color:#66d9ef">end</span>
+
+  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">start</span>
+    <span style="color:#66d9ef">while</span> <span style="color:#66d9ef">true</span>
+      <span style="color:#66d9ef">Thread</span><span style="color:#f92672">.</span>start(@server<span style="color:#f92672">.</span>accept) <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>socket<span style="color:#f92672">|</span>
+
+        <span style="color:#75715e"># ヘッダ情報(例: &#34;GET /index.html HTTP/1.1&#34;)を取得</span>
+        request <span style="color:#f92672">=</span> socket<span style="color:#f92672">.</span>gets
+
+        <span style="color:#66d9ef">if</span> request<span style="color:#f92672">.</span>include? <span style="color:#e6db74">&#34;GET&#34;</span>
+          <span style="color:#75715e"># スラッシュ始まりでは、有効なパスにならないため先頭にピリオドを付加</span>
+          path <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;.&#39;</span> <span style="color:#f92672">+</span> request<span style="color:#f92672">.</span>split()<span style="color:#f92672">[</span><span style="color:#ae81ff">1</span><span style="color:#f92672">]</span>
+          <span style="color:#75715e"># トップページのパスは&#39;./&#39;になっているので、./index.htmlに変換</span>
+          path <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;./index.html&#39;</span> <span style="color:#66d9ef">if</span> path <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;./&#39;</span>
+          ctype <span style="color:#f92672">=</span> content_type<span style="color:#f92672">[</span><span style="color:#66d9ef">File</span><span style="color:#f92672">.</span>extname(path)<span style="color:#f92672">]</span>
+
+          contens <span style="color:#f92672">=</span> read_file(path, ctype)
+
+          socket<span style="color:#f92672">.</span>print <span style="color:#e6db74">&#34;HTTP/1.1 200 &#39;OK&#39;</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">&#34;</span>
+          socket<span style="color:#f92672">.</span>print <span style="color:#e6db74">&#34;Content-Type: </span><span style="color:#e6db74">#{</span>ctype<span style="color:#e6db74">}</span><span style="color:#ae81ff">\r\n\r\n</span><span style="color:#e6db74">&#34;</span>
+          socket<span style="color:#f92672">.</span>print <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">#{</span>contens<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+          socket<span style="color:#f92672">.</span>close
+        <span style="color:#66d9ef">end</span>
+      <span style="color:#66d9ef">end</span>
+    <span style="color:#66d9ef">end</span>
+  <span style="color:#66d9ef">end</span>
+
+  <span style="color:#66d9ef">private</span>
+
+  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">read_file</span>(path, ctype)
+    <span style="color:#66d9ef">case</span> ctype
+    <span style="color:#66d9ef">when</span> <span style="color:#e6db74">&#39;text/html&#39;</span>, <span style="color:#e6db74">&#39;text/css&#39;</span>
+      <span style="color:#66d9ef">File</span><span style="color:#f92672">.</span>read(path)
+    <span style="color:#66d9ef">when</span> <span style="color:#e6db74">&#39;image/png&#39;</span>
+      <span style="color:#66d9ef">File</span><span style="color:#f92672">.</span>binread(path)
+    <span style="color:#66d9ef">end</span>
+  <span style="color:#66d9ef">end</span>
+<span style="color:#66d9ef">end</span>  
+
+server <span style="color:#f92672">=</span> <span style="color:#66d9ef">MyTCPServer</span><span style="color:#f92672">.</span>new()
+server<span style="color:#f92672">.</span>start</code></pre>
+        </div>
+      </div>
+      <p>スクリプトと同じディレクトリに<code>index.html</code>を保存して、ブラウザで<code>localhost:8080</code>にアクセスすれば普通にWebページを開けます。リンクを張ってサーバ内の別のページに移動することもできます。いろんなサイトでサンプルを見たのですが、どれもテキストデータの送信しか書かれておらず、画像データ（今回は<code>.png</code>と<code>.ico</code>のみに対応）の含まれたWebサイトに対応するのに手間がかかってしまいました。</p>
+      <p>存在しないサイトが指定された場合のエラー処理や不正なURLへの対応などは全くしていないし、POSTリクエストやクエリの受付にも対応していないため、本格的なWebサーバとは呼べませんが、自分のテスト用に使うなら十分です。</p>
+      <h2 id="webサーバ作って得たもの">Webサーバ作って得たもの</h2>
+      <p>今回、Webサーバを作ってみて、単に文字列やファイルを返すだけなら全然難しくないな、と思いました。こんな単純なサーバを作っただけで何を調子に乗っているんだと、怒られそうですが正直な感想です。本格的なWebサーバはセキュリティなどに気を使っているそうなのですが、今回作ったレベルサーバではセキュリティの危険がありそうなところはまったく無い気がします&hellip;と書きましたが、よく見たら<code>read_file</code>メソッドでサーバ何に存在するファイルがどれでも入手可能な状態でした😭（こんなサーバをくれぐれも外部に公開しないように）。</p>
+      <p>作ってみて初めてセキュリティの対策の重要性が明らかになるなど、良い経験になりました。車輪の再発明でもいいから自分の手で作ってみる、というのは重要な気がします。</p>
+    </section>
+  </div>
+</main>
+<footer>
+  <div class="footer-container">
+    <div class="next"><a href="./2021-02-22.html">&lt;&lt; ブロック付きHash.new</a></div>
+    <div class="prev"><a href="./2021-02-18.html">CSVを読み書きする &gt;&gt;</a></div>
+    <div class="top"><a href="#">トップへ戻る</a></div>
+    <div class="copyright">
+      <small>Copyright(C)iBean, Allright Reserved.</small>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
