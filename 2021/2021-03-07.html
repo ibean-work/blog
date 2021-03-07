@@ -1,0 +1,1716 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>連結子会社の売却損益計算：のれん、追加取得あり</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="icon" href="../favicon.ico">
+</head>
+<body>
+<header>
+  <div class="header-container">
+    <h1><a href="../index.html">iBean</a></h1>
+    <div class="aboutme"><a href="../about/index.html">About me</a></div>
+  </dif>
+</header>
+<main>
+  <div class="card">
+    <h1>連結子会社の売却損益計算：のれん、追加取得あり</h1>
+    <h5>
+      <time datetime="2021-03-07">2021-03-07</time>
+    </h5>
+    <div class="kijicat">
+      <ul>
+        <li>会計/経理</li>
+      </ul>
+    </div>
+    <section>
+      <p>今回は、さらに複雑なケースとして取得時にのれんが発生し、その後追加取得、一部売却を経て売却されるケースを考えてみたいと思います。なお、以下の仕訳はIFRS適用会社の場合を想定し、のれんの償却は行っていません。しかし、それ以外の点は日本基準でも同様の処理となるので参考にはなるでしょう。また、簡単化のため税効果も考慮していないので、ご了承ください。</p>
+      <h2>のれん、追加取得の処理</h2>
+      <h3>X0年：のれんのある取得</h3>
+      <p>X0年末にP社が120を支払って、外部からS社の株式を60%取得し子会社とした場合を考えます。</p>
+      <ul>
+        <li>X0年の期末にP社がS社の株式を60%買取り子会社とする</li>
+        <li>S社のBSは簿価と公正価値に乖離がない</li>
+        <li>P社の支払額は120、S社の純資産は160（資本金：100、利益剰余金：60）</li>
+        <li>のれん：120 - 160 × 60% = 24</li>
+        <li>非支配株主持分：S社純資産160 × 外部持分40% = 64</li>
+      </ul>
+      <p>X0年末のP社、S社のBSと連結BSは以下の形になっているとします。</p>
+      <hr>
+      <h4>X0年 期末BS</h4>
+      <div class="company2" style="width: 737px;">
+        <!-- BS for P -->
+        <table class="simple_bs">
+          <thead>
+            <tr>
+              <td class="bs_company_name" colspan="4">P社</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="bs_act">資産</td>
+              <td class="bs_amt_left">1,100</td>
+              <td class="bs_act">資本金</td>
+              <td class="bs_amt">800</td>
+            </tr>
+            <tr>
+              <td class="bs_act">S社株式</td>
+              <td class="bs_amt_left">120</td>
+              <td class="bs_act">利益剰余金</td>
+              <td class="bs_amt">420</td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- BS for S -->
+        <table class="simple_bs">
+          <thead>
+            <tr>
+              <td class="bs_company_name" colspan="4">S社</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="bs_act">資産</td>
+              <td class="bs_amt_left">160</td>
+              <td class="bs_act">資本金</td>
+              <td class="bs_amt">100</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td class="bs_amt_left"></td>
+              <td class="bs_act">利益剰余金</td>
+              <td class="bs_amt">60</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- Consolidated BS -->
+      <table class="simple_bs" style="width: 346px">
+        <thead>
+          <tr>
+            <td class="bs_company_name" colspan="4">連結</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="bs_act">資産</td>
+            <td class="bs_amt_left">1,260</td>
+            <td class="bs_act">資本金</td>
+            <td class="bs_amt">800</td>
+          </tr>
+          <tr>
+            <td class="bs_act">のれん</td>
+            <td class="bs_amt_left">24</td>
+            <td class="bs_act">利益剰余金</td>
+            <td class="bs_amt">420</td>
+          </tr>
+          <tr>
+            <td class="bs_act"></td>
+            <td class="bs_amt_left"></td>
+            <td class="bs_act">非支配持分</td>
+            <td class="bs_amt">64</td>
+          </tr>
+        </tbody>
+      </table>
+      <h4>【連結修正仕訳】</h4>
+      <table class="journal_entry">
+        <thead>
+          <tr>
+            <td class="je_memo">投資と資本の相殺消去</td>
+            <td class="je_dr">借方</td>
+            <td class="je_cr">貸方</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="je_dract">資本金</td>
+            <td class="je_amt">100</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="je_dract">利益剰余金</td>
+            <td class="je_amt">60</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="je_dract">のれん</td>
+            <td class="je_amt">24</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="je_cract">S社株式</td>
+            <td></td>
+            <td class="je_amt">120</td>
+          </tr>
+          <tr>
+            <td class="je_cract">非支配株主持分</td>
+            <td></td>
+            <td class="je_amt">64</td>
+          </tr>
+        </tbody>
+      </table>
+      <h4>【連結精算表】</h4>
+      <div style="overflow-x: auto; width: 737px;">
+        <table class="worksheet">
+          <thead>
+            <tr>
+              <td style="width: 150px; border-bottom: 1px solid #535353;"></td>
+              <td style="width: 60px; border-bottom: 1px solid #535353;">P社</td>
+              <td style="width: 60px; border-bottom: 1px solid #535353;">S社</td>
+              <td style="width: 60px; border-bottom: 1px solid #535353;">合計</td>
+              <td style="width: 60px; border-bottom: 1px solid #535353;">投相殺</td>
+              <td style="width: 60px; border-bottom: 1px solid #535353;">連結</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>資産</td>
+              <td style="text-align: right;">1,100</td>
+              <td style="text-align: right;">160</td>
+              <td style="text-align: right;">1,260</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">1,260</td>
+            </tr>
+            <tr>
+              <td>S社株式</td>
+              <td style="text-align: right;">120</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">120</td>
+              <td style="text-align: right;">(120)</td>
+              <td style="text-align: right;">0</td>
+            </tr>
+            <tr>
+              <td>のれん</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">0</td>
+              <td style="text-align: right;">24</td>
+              <td style="text-align: right;">24</td>
+            </tr>
+            <tr>
+              <td>資本金</td>
+              <td style="text-align: right;">800</td>
+              <td style="text-align: right;">100</td>
+              <td style="text-align: right;">900</td>
+              <td style="text-align: right;">(100)</td>
+              <td style="text-align: right;">800</td>
+            </tr>
+            <tr>
+              <td>利益剰余金-期末</td>
+              <td style="text-align: right;">420</td>
+              <td style="text-align: right;">60</td>
+              <td style="text-align: right;">480</td>
+              <td style="text-align: right;">(60)</td>
+              <td style="text-align: right;">420</td>
+            </tr>
+            <tr>
+              <td>非支配持分-期末</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">64</td>
+              <td style="text-align: right;">64</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h4>【S社の連結上の簿価】</h4>
+      <table style="border-collapse: collapse; margin: 10px 0 10px 0;">
+        <tr><td style="border-bottom: 1px solid #535353;">出資額</td><td style="text-align: right; border-bottom: 1px solid #535353; width: 120px;">120</td></tr>
+        <tr><td>連結上の簿価</td><td style="text-align: right;">120</td></tr>
+      </table>
+      <hr>
+      <h3>X1年：追加取得は資本剰余金を使う</h3>
+      <p>X1年末にP社は80を支払って、S社株式を20%追加取得した場合を考えます。P社、S社はX1年で純損益をそれぞれ100、20を獲得したとします。</p>
+      <ul>
+        <li>X1年末のS社純資産は180であり、取得分20%の純資産額は 180 × 20% = 36 となる。</li>
+        <li>P社の支払額は80であるため、支払額80 - 取得純資産額36 = 44 が資本剰余金となる。</li>
+        <li>S社の非支配持分の期末残高は、180 × 20% = 36 である。</li>
+      </ul>
+      <p>この時、連結BSは以下の通りとなります。なお、資本剰余金がマイナス残高となっており、本来であれば利益剰余金から補填すべきですが、仕訳が多くなるので省略しました。</p>
+      <hr>
+      <h4>X1年 期末BS</h4>
+      <div class="company2" style="width: 737px;">
+        <!-- BS for P -->
+        <table class="simple_bs">
+          <thead>
+            <tr>
+              <td class="bs_company_name" colspan="4">P社</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="bs_act">資産</td>
+              <td class="bs_amt_left">1,120</td>
+              <td class="bs_act">資本</td>
+              <td class="bs_amt">800</td>
+            </tr>
+            <tr>
+              <td class="bs_act">S社株式</td>
+              <td class="bs_amt_left">200</td>
+              <td class="bs_act">利益剰余金</td>
+              <td class="bs_amt">520</td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- BS for S -->
+        <table class="simple_bs">
+          <thead>
+            <tr>
+              <td class="bs_company_name" colspan="4">S社</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="bs_act">資産</td>
+              <td class="bs_amt_left">180</td>
+              <td class="bs_act">資本</td>
+              <td class="bs_amt">100</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td class="bs_amt_left"></td>
+              <td class="bs_act">利益剰余金</td>
+              <td class="bs_amt">80</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- Consolidated BS -->
+      <table class="simple_bs" style="width: 340px;">
+        <thead>
+          <tr>
+            <td class="bs_company_name" colspan="4">連結</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="bs_act">資産</td>
+            <td class="bs_amt_left">1,300</td>
+            <td class="bs_act">資本</td>
+            <td class="bs_amt">800</td>
+          </tr>
+          <tr>
+            <td class="bs_act">のれん</td>
+            <td class="bs_amt_left">24</td>
+            <td class="bs_act">資本剰余金</td>
+            <td class="bs_amt">(44)</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td class="bs_amt_left"></td>
+            <td class="bs_act">利益剰余金</td>
+            <td class="bs_amt">532</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td class="bs_amt_left"></td>
+            <td class="bs_act">非支配持分</td>
+            <td class="bs_amt">36</td>
+          </tr>
+        </tbody>
+      </table>
+      <h4>【連結修正仕訳】</h4>
+      <table class="journal_entry">
+        <thead>
+          <tr>
+            <td class="je_memo">開始）投資と資本の相殺消去</td>
+            <td class="je_dr">借方</td>
+            <td class="je_cr">貸方</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="je_dract">資本金</td>
+            <td class="je_amt">100</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="je_dract">利益剰余金-期末</td>
+            <td class="je_amt">60</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="je_dract">のれん</td>
+            <td class="je_amt">24</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="je_cract">S社株式</td>
+            <td></td>
+            <td class="je_amt">120</td>
+          </tr>
+          <tr>
+            <td class="je_cract">非支配株主持分-期首</td>
+            <td></td>
+            <td class="je_amt">64</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="journal_entry">
+        <thead>
+          <tr>
+            <td class="je_memo">非支配持分の計上</td>
+            <td class="je_dr">借方</td>
+            <td class="je_cr">貸方</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="je_dract">非支配株主に帰属する当期純利益</td>
+            <td class="je_amt">8<sup>*</sup></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="je_cract">非支配持分-当期</td>
+            <td></td>
+            <td class="je_amt">8</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="font-size: 10pt; margin-top: -15px;"><sup>*</sup>S社の純損益20 × 非支配持分40% = 8</p>
+      <table class="journal_entry">
+        <thead>
+          <tr>
+            <td class="je_memo">追加取得</td>
+            <td class="je_dr">借方</td>
+            <td class="je_cr">貸方</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="je_dract">資本剰余金</td>
+            <td class="je_amt">44</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="je_dract">非支配持分-追加</td>
+            <td class="je_amt">36<sup>*</sup></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="je_cract">S社株式</td>
+            <td></td>
+            <td class="je_amt">80</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="font-size: 10pt; margin-top: -15px;"><sup>*</sup>S社の純資産180 × 減少した非支配持分20% = 36</p>
+      <h4>【連結精算表】</h4>
+      <div style="overflow-x: auto; width: 737px;">
+        <table class="worksheet">
+          <thead>
+            <tr>
+              <td style="width: 150px; border-bottom: 1px solid #535353;"></td>
+              <td style="width: 60px; border-bottom: 1px solid #535353;">P社</td>
+              <td style="width: 60px; border-bottom: 1px solid #535353;">S社</td>
+              <td style="width: 60px; border-bottom: 1px solid #535353;">合計</td>
+              <td style="width: 60px; border-bottom: 1px solid #535353;">投相殺</td>
+              <td style="width: 60px; border-bottom: 1px solid #535353;">非支</td>
+              <td style="width: 60px; border-bottom: 1px solid #535353;">追取得</td>
+              <td style="width: 60px; border-bottom: 1px solid #535353;">連結</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>資産</td>
+              <td style="text-align: right;">1,120</td>
+              <td style="text-align: right;">180</td>
+              <td style="text-align: right;">1,300</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">1,300</td>
+            </tr>
+            <tr>
+              <td>S社株式</td>
+              <td style="text-align: right;">200</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">200</td>
+              <td style="text-align: right;">(120)</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">(80)</td>
+              <td style="text-align: right;">0</td>
+            </tr>
+            <tr>
+              <tr>
+                <td>のれん</td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;">0</td>
+                <td style="text-align: right;">24</td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: right;">24</td>
+              </tr>
+              <tr>
+              <td>資本</td>
+              <td style="text-align: right;">800</td>
+              <td style="text-align: right;">100</td>
+              <td style="text-align: right;">900</td>
+              <td style="text-align: right;">(100)</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">800</td>
+            </tr>
+            <tr>
+              <td>資本剰余金</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">0</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">(44)</td>
+              <td style="text-align: right;">(44)</td>
+            </tr>
+            <tr style="background-color: #e0e0e0;">
+              <td>&emsp;利益剰余金-期首</td>
+              <td style="text-align: right;">420</td>
+              <td style="text-align: right;">60</td>
+              <td style="text-align: right;">480</td>
+              <td style="text-align: right;">(60)</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">420</td>
+            </tr>
+            <tr style="background-color: #e0e0e0;">
+              <td>&emsp;利益剰余金-当期</td>
+              <td style="text-align: right;">100</td>
+              <td style="text-align: right;">20</td>
+              <td style="text-align: right;">120</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">(8)</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">112</td>
+            </tr>            <tr>
+              <td>利益剰余金-期末</td>
+              <td style="text-align: right;">520</td>
+              <td style="text-align: right;">80</td>
+              <td style="text-align: right;">600</td>
+              <td style="text-align: right;">(60)</td>
+              <td style="text-align: right;">(8)</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">532</td>
+            </tr>
+            <tr style="background-color: #e0e0e0;">
+              <td>&emsp;非支配持分-期首</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">0</td>
+              <td style="text-align: right;">64</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">64</td>
+            </tr>
+            <tr style="background-color: #e0e0e0;">
+              <td>&emsp;非支配持分-当期</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">0</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">8</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">8</td>
+            </tr>
+            <tr style="background-color: #e0e0e0;">
+              <td>&emsp;非支配持分-追加</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">0</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">(36)</td>
+              <td style="text-align: right;">(36)</td>
+            </tr>
+            <tr>
+              <td>非支配持分-期末</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">0</td>
+              <td style="text-align: right;">64</td>
+              <td style="text-align: right;">8</td>
+              <td style="text-align: right;">(36)</td>
+              <td style="text-align: right;">36</td>
+            </tr>
+            <tr style="height: 16px;">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>純損益</td>
+              <td style="text-align: right;">100</td>
+              <td style="text-align: right;">20</td>
+              <td style="text-align: right;">120</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">120</td>
+            </tr>
+            <tr style="height: 16px;">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>親持純損益</td>
+              <td style="text-align: right;">100</td>
+              <td style="text-align: right;">20</td>
+              <td style="text-align: right;">120</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">(8)</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">112</td>
+            </tr>
+            <tr>
+              <td>非支持純損益</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">8</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">8</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h4>【S社の連結上の簿価】</h4>
+      <table style="border-collapse: collapse; margin: 10px 0 10px 0;">
+        <tr><td>出資額</td><td style="text-align: right; width: 120px;">120</td></tr>
+        <tr><td>X1年純損益20×持分60%</td><td style="text-align: right; width: 120px;">12</td></tr>
+        <tr><td style="border-bottom: 1px solid #535353;">追加出資</td><td style="text-align: right; border-bottom: 1px solid #535353; width: 120px;">36<sup>*</sup></td></tr>
+        <tr><td>連結上の簿価</td><td style="text-align: right;">168</td></tr>
+      </table>
+      <p><sup>*</sup>S社純資産180 × 追加出資20% = 36（資本剰余金として認識した44は連結上の簿価を構成しません）</p>
+      <hr>
+      <h2>一部売却、全部売却の処理</h2>
+      <p>ここからは、前回と同じ一部売却と全部売却の処理となりますが、X0年、X1年で発生したのれんと資本剰余金の残高がある点が前回と異なります。しかし、基本的な計算方法は変わりないため１つ１つ丁寧に見て行けば難しくはないでしょう。</p>
+      <h3>X2年：一部売却</h3>
+      <p>X2年末にP社が持つS社株式の持分10%を50で売却したとします（X1年末：80% ⇒ X2年末：70%）。また、P社、S社はX2年で子会社売却益を除いた純損益（＝その他損益）をそれぞれ120、20を獲得したとします。</p>
+      <ul>
+        <li>P社単体での売却したS社株式の原価は、200 * 10% / 80% = 25 です。よって、単体上の株式売却益は、50 - 25 = 25 となります。</li>
+        <li>一部売却による非支配持分の増加は、X2年末のS社純資産200 × 増加する非支配持分10% = 20 です。</li>
+        <li>S社の非支配持分の期末残高は、200 × 30% = 60 である。</li>
+      </ul>
+      <p>X0年、X1年の仕訳を開始仕訳として記載するため、仕訳量が多くなっていますが、省略せず全て記載しています。"開始）"が付いている仕訳は前期以前のものを繰り返しているだけなので、それ以外の仕訳に注目してください。</p>
+      <hr>
+      <h4>X2年 期末BS</h4>
+      <div class="company2" style="width: 737px;">
+        <!-- BS for P -->
+        <table class="simple_bs">
+          <thead>
+            <tr>
+              <td class="bs_company_name" colspan="4">P社</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="bs_act">資産</td>
+              <td class="bs_amt_left">1,290</td>
+              <td class="bs_act">資本</td>
+              <td class="bs_amt">800</td>
+            </tr>
+            <tr>
+              <td class="bs_act">S社株式</td>
+              <td class="bs_amt_left">175</td>
+              <td class="bs_act">利益剰余金</td>
+              <td class="bs_amt">665</td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- BS for S -->
+        <table class="simple_bs">
+          <thead>
+            <tr>
+              <td class="bs_company_name" colspan="4">S社</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="bs_act">資産</td>
+              <td class="bs_amt_left">200</td>
+              <td class="bs_act">資本</td>
+              <td class="bs_amt">100</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td class="bs_amt_left"></td>
+              <td class="bs_act">利益剰余金</td>
+              <td class="bs_amt">100</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- Consolidated BS -->
+      <table class="simple_bs" style="width: 340px;">
+        <thead>
+          <tr>
+            <td class="bs_company_name" colspan="4">連結</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="bs_act">資産</td>
+            <td class="bs_amt_left">1,490</td>
+            <td class="bs_act">資本金</td>
+            <td class="bs_amt">800</td>
+          </tr>
+          <tr>
+            <td class="bs_act">のれん</td>
+            <td class="bs_amt_left">24</td>
+            <td class="bs_act">資本剰余金</td>
+            <td class="bs_amt">(14)</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td class="bs_amt_left"></td>
+            <td class="bs_act">利益剰余金</td>
+            <td class="bs_amt">668</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td class="bs_amt_left"></td>
+            <td class="bs_act">非支配持分</td>
+            <td class="bs_amt">60</td>
+          </tr>
+        </tbody>
+      </table>
+      <h4>【連結修正仕訳】</h4>
+      <table class="journal_entry">
+        <thead>
+          <tr>
+            <td class="je_memo">開始）投資と資本の相殺消去</td>
+            <td class="je_dr">借方</td>
+            <td class="je_cr">貸方</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="je_dract">資本金</td>
+            <td class="je_amt">100</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="je_dract">利益剰余金-期末</td>
+            <td class="je_amt">60</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="je_dract">のれん</td>
+            <td class="je_amt">24</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="je_cract">S社株式</td>
+            <td></td>
+            <td class="je_amt">120</td>
+          </tr>
+          <tr>
+            <td class="je_cract">非支配株主持分-期首</td>
+            <td></td>
+            <td class="je_amt">64</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="journal_entry">
+        <thead>
+          <tr>
+            <td class="je_memo">開始）非支配持分の計上</td>
+            <td class="je_dr">借方</td>
+            <td class="je_cr">貸方</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="je_dract">利益剰余金-期首</td>
+            <td class="je_amt">8</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="je_cract">非支配持分-期首</td>
+            <td></td>
+            <td class="je_amt">8</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="journal_entry">
+        <thead>
+          <tr>
+            <td class="je_memo">開始）追加取得</td>
+            <td class="je_dr">借方</td>
+            <td class="je_cr">貸方</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="je_dract">資本剰余金-期首</td>
+            <td class="je_amt">44</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="je_dract">非支配持分-期首</td>
+            <td class="je_amt">36</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="je_cract">S社株式</td>
+            <td></td>
+            <td class="je_amt">80</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="journal_entry">
+        <thead>
+          <tr>
+            <td class="je_memo">非支配持分の計上</td>
+            <td class="je_dr">借方</td>
+            <td class="je_cr">貸方</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="je_dract">非支配株主に帰属する当期純利益</td>
+            <td class="je_amt">4<sup>*</sup></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="je_cract">非支配持分-当期</td>
+            <td></td>
+            <td class="je_amt">4</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="font-size: 10pt; margin-top: -15px;"><sup>*</sup>S社純損益20 × （一部売却前）非支配持分20% = 4</p>
+      <table class="journal_entry">
+        <thead>
+          <tr>
+            <td class="je_memo">一部売却(1)</td>
+            <td class="je_dr">借方</td>
+            <td class="je_cr">貸方</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="je_dract">S社株式</td>
+            <td class="je_amt">25</td>
+            <td class="je_amt"></td>
+          </tr>
+          <tr>
+            <td class="je_cract">子会社売却益</td>
+            <td class="je_amt"></td>
+            <td class="je_amt">5</td>
+          </tr>
+          <tr>
+            <td class="je_cract">非支配持分-一部売却</td>
+            <td class="je_amt"></td>
+            <td class="je_amt">20*</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="font-size: 10pt; margin-top: -15px;"><sup>*</sup>X2年末のS社純資産200 × 増加する非支配持分10% = 20</p>
+      <table class="journal_entry">
+        <thead>
+          <tr>
+            <td class="je_memo">一部売却(2)-資本剰余金への振替</td>
+            <td class="je_dr">借方</td>
+            <td class="je_cr">貸方</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="je_dract">子会社売却益</td>
+            <td class="je_amt">30<sup>*</sup></td>
+            <td class="je_amt"></td>
+          </tr>
+          <tr>
+            <td class="je_cract">資本剰余金-一部売却</td>
+            <td class="je_amt"></td>
+            <td class="je_amt">30</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="font-size: 10pt; margin-top: -15px;"><sup>*</sup>単体上の売却損益25 + 一部売却(1)で発生した売却益5 = 30<br>
+         （S社は引き続き子会社であるため、売却損益は全て資本剰余金へ振替）</p>
+      <h4>【連結精算表】</h4>
+      <div style="overflow-x: auto; width: 737px;">
+        <table class="worksheet">
+          <thead>
+            <tr>
+              <td style="width: 150px; border-bottom: 1px solid #535353;"></td>
+              <td style="width: 60px; border-bottom: 1px solid #535353;">P社</td>
+              <td style="width: 60px; border-bottom: 1px solid #535353;">S社</td>
+              <td style="width: 60px; border-bottom: 1px solid #535353;">合計</td>
+              <td style="width: 60px; border-bottom: 1px solid #535353;">投相殺</td>
+              <td style="width: 60px; border-bottom: 1px solid #535353;">非支</td>
+              <td style="width: 60px; border-bottom: 1px solid #535353;">追取得</td>
+              <td style="width: 60px; border-bottom: 1px solid #535353;">一部売</td>
+              <td style="width: 60px; border-bottom: 1px solid #535353;">連結</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>資産</td>
+              <td style="text-align: right;">1,290</td>
+              <td style="text-align: right;">200</td>
+              <td style="text-align: right;">1,490</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">1,490</td>
+            </tr>
+            <tr>
+              <td>S社株式</td>
+              <td style="text-align: right;">175</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">175</td>
+              <td style="text-align: right;">(120)</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">(80)</td>
+              <td style="text-align: right;">25</td>
+              <td style="text-align: right;">0</td>
+            </tr>
+            <tr>
+              <td>のれん</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">0</td>
+              <td style="text-align: right;">24</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">24</td>
+            </tr>
+            <tr>
+              <td>資本金</td>
+              <td style="text-align: right;">800</td>
+              <td style="text-align: right;">100</td>
+              <td style="text-align: right;">900</td>
+              <td style="text-align: right;">(100)</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">800</td>
+            </tr>
+            <tr style="background-color: #e0e0e0;">
+              <td>&emsp;資本剰余金-期首</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">0</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">(44)</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">(44)</td>
+            </tr>
+            <tr style="background-color: #e0e0e0;">
+              <td>&emsp;資本剰余金-一売</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">0</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">30</td>
+              <td style="text-align: right;">30</td>
+            </tr>
+            <tr>
+              <td>資本剰余金-期末</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">0</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">(44)</td>
+              <td style="text-align: right;">30</td>
+              <td style="text-align: right;">(14)</td>
+            </tr>
+            <tr style="background-color: #e0e0e0;">
+              <td>&emsp;利益剰余金-期首</td>
+              <td style="text-align: right;">520</td>
+              <td style="text-align: right;">80</td>
+              <td style="text-align: right;">600</td>
+              <td style="text-align: right;">(60)</td>
+              <td style="text-align: right;">(8)</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">532</td>
+            </tr>
+            <tr style="background-color: #e0e0e0;">
+              <td>&emsp;利益剰余金-当期</td>
+              <td style="text-align: right;">145</td>
+              <td style="text-align: right;">20</td>
+              <td style="text-align: right;">165</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">(4)</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">(25)</td>
+              <td style="text-align: right;">136</td>
+            </tr>
+            <tr>
+              <td>利益剰余金-期末</td>
+              <td style="text-align: right;">665</td>
+              <td style="text-align: right;">100</td>
+              <td style="text-align: right;">765</td>
+              <td style="text-align: right;">(60)</td>
+              <td style="text-align: right;">(12)</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">(25)</td>
+              <td style="text-align: right;">668</td>
+            </tr>
+            <tr style="background-color: #e0e0e0;">
+              <td>&emsp;非支配持分-期首</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">0</td>
+              <td style="text-align: right;">64</td>
+              <td style="text-align: right;">8</td>
+              <td style="text-align: right;">(36)</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">36</td>
+            </tr>
+            <tr style="background-color: #e0e0e0;">
+              <td>&emsp;非支配持分-当期</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">0</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">4</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">4</td>
+            </tr>
+            <tr style="background-color: #e0e0e0;">
+              <td>&emsp;非支配持分-一売</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">0</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">20</td>
+              <td style="text-align: right;">20</td>
+            </tr>
+            <tr>
+              <td>非支配持分-期末</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">0</td>
+              <td style="text-align: right;">64</td>
+              <td style="text-align: right;">12</td>
+              <td style="text-align: right;">(36)</td>
+              <td style="text-align: right;">20</td>
+              <td style="text-align: right;">60</td>
+            </tr>
+            <tr style="height: 16px;">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr style="background-color: #e0e0e0;">
+              <td>&emsp;子会社売却益</td>
+              <td style="text-align: right;">25</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">25</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">(25)</td>
+              <td style="text-align: right;">0</td>
+            </tr>
+            <tr style="background-color: #e0e0e0;">
+              <td>&emsp;その他損益</td>
+              <td style="text-align: right;">120</td>
+              <td style="text-align: right;">20</td>
+              <td style="text-align: right;">140</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">140</td>
+            </tr>
+            <tr>
+              <td>純損益</td>
+              <td style="text-align: right;">145</td>
+              <td style="text-align: right;">20</td>
+              <td style="text-align: right;">170</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">(25)</td>
+              <td style="text-align: right;">145</td>
+            </tr>
+            <tr style="height: 16px;">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>親持純損益</td>
+              <td style="text-align: right;">145</td>
+              <td style="text-align: right;">20</td>
+              <td style="text-align: right;">170</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">(4)</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">(25)</td>
+              <td style="text-align: right;">141</td>
+            </tr>
+            <tr>
+              <td>非支持純損益</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">4</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">4</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h4>【S社の連結上の簿価】</h4>
+      <table style="border-collapse: collapse; margin: 10px 0 10px 0;">
+        <tr><td>出資額</td><td style="text-align: right; width: 120px;">120</td></tr>
+        <tr><td>X1年純損益20×持分60%</td><td style="text-align: right; width: 120px;">12</td></tr>
+        <tr><td>追加出資</td><td style="text-align: right; width: 120px;">36</td></tr>
+        <tr><td>X2年純損益20×持分80%</td><td style="text-align: right; width: 120px;">16</td></tr>
+        <tr><td style="border-bottom: 1px solid #535353;">一部売却</td><td style="text-align: right; border-bottom: 1px solid #535353; width: 120px;">(20)<sup>*</sup></td></tr>
+        <tr><td>連結上の簿価</td><td style="text-align: right;">164</td></tr>
+      </table>
+      <p style="font-size: 10pt;"><sup>*</sup>S社純資産200 × 減少する持分10% = 20</p>
+      <hr>
+      <h3>X3年：全部売却</h3>
+      <p>X3年末にP社は保有しているS社株式を全て売却した場合を考えます。S社が連結から外れてもP社は引き続き連結決算を行っているとします。</p>
+      <p>P社、S社はX3年で子会社売却損益を除き純損益をそれぞれ120、20を獲得したとします。</p>
+      <ul>
+        <li>P社はS社株式の全て(70%)を300で売却したとします。</li>
+        <li>単体上の子会社株式売却益は、300 - 175 = 125 となります。</li>
+        <li>売却時点の連結上の簿価：
+          <table style="border-collapse: collapse; margin: 10px 0 10px 0;">
+            <tr><td>出資額</td><td style="text-align: right; width: 120px;">120</td></tr>
+            <tr><td>X1年純損益20×持分60%</td><td style="text-align: right; width: 120px;">12</td></tr>
+            <tr><td>追加出資</td><td style="text-align: right; width: 120px;">36</td></tr>
+            <tr><td>X2年純損益20×持分80%</td><td style="text-align: right; width: 120px;">16</td></tr>
+            <tr><td>一部売却</td><td style="text-align: right;width: 120px;">(20)</td></tr>
+            <tr><td style="border-bottom: 1px solid #535353;">X3年S社純損益20 × 持分70%</td><td style="text-align: right; border-bottom: 1px solid #535353; width: 120px;">14</td></tr>
+            <tr><td>連結上の簿価</td><td style="text-align: right;">178</td></tr>
+          </table>
+        </li>
+        <li>連結上の子会社売却益は、300 - 178 = 122 となります。</li>
+      </ul>
+      <hr>
+      <h4>X3年 期末BS</h4>
+      <div class="company2" style="width: 737px;">
+        <!-- BS for P -->
+        <table class="simple_bs">
+          <thead>
+            <tr>
+              <td class="bs_company_name" colspan="4">P社</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="bs_act">資産</td>
+              <td class="bs_amt_left">1,710</td>
+              <td class="bs_act">資本</td>
+              <td class="bs_amt">800</td>
+            </tr>
+            <tr>
+              <td class="bs_act"></td>
+              <td class="bs_amt_left"></td>
+              <td class="bs_act">利益剰余金</td>
+              <td class="bs_amt">910</td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- BS for S -->
+        <table class="simple_bs">
+          <thead>
+            <tr>
+              <td class="bs_company_name" colspan="4">S社</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="bs_act">資産</td>
+              <td class="bs_amt_left">220</td>
+              <td class="bs_act">資本</td>
+              <td class="bs_amt">100</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td class="bs_amt_left"></td>
+              <td class="bs_act">利益剰余金</td>
+              <td class="bs_amt">120</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- Consolidated BS -->
+      <table class="simple_bs" style="width: 340px;">
+        <thead>
+          <tr>
+            <td class="bs_company_name" colspan="4">連結</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="bs_act">資産</td>
+            <td class="bs_amt_left">1,710</td>
+            <td class="bs_act">資本金</td>
+            <td class="bs_amt">800</td>
+          </tr>
+          <tr>
+            <td class="bs_act"></td>
+            <td class="bs_amt_left"></td>
+            <td class="bs_act">資本剰余金</td>
+            <td class="bs_amt">(14)</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td class="bs_amt_left"></td>
+            <td class="bs_act">利益剰余金</td>
+            <td class="bs_amt">924</td>
+          </tr>
+        </tbody>
+      </table>
+      <h4>【連結修正仕訳】（S社BSは合算対象から除外するため、BS除外仕訳も省略）</h4>
+      <table class="journal_entry">
+        <thead>
+          <tr>
+            <td class="je_memo">開始）投資と資本の相殺消去</td>
+            <td class="je_dr">借方</td>
+            <td class="je_cr">貸方</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="je_dract">資本金</td>
+            <td class="je_amt">100</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="je_dract">利益剰余金-期末</td>
+            <td class="je_amt">60</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="je_dract">のれん</td>
+            <td class="je_amt">24</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="je_cract">S社株式</td>
+            <td></td>
+            <td class="je_amt">120</td>
+          </tr>
+          <tr>
+            <td class="je_cract">非支配株主持分-期首</td>
+            <td></td>
+            <td class="je_amt">64</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="journal_entry">
+        <thead>
+          <tr>
+            <td class="je_memo">開始）非支配持分の計上</td>
+            <td class="je_dr">借方</td>
+            <td class="je_cr">貸方</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="je_dract">利益剰余金-期首</td>
+            <td class="je_amt">12</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="je_cract">非支配持分-期首</td>
+            <td></td>
+            <td class="je_amt">12</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="journal_entry">
+        <thead>
+          <tr>
+            <td class="je_memo">開始）追加取得</td>
+            <td class="je_dr">借方</td>
+            <td class="je_cr">貸方</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="je_dract">資本剰余金-期首</td>
+            <td class="je_amt">44</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="je_dract">非支配持分-期首</td>
+            <td class="je_amt">36</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="je_cract">S社株式</td>
+            <td></td>
+            <td class="je_amt">80</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="journal_entry">
+        <thead>
+          <tr>
+            <td class="je_memo">開始）一部売却</td>
+            <td class="je_dr">借方</td>
+            <td class="je_cr">貸方</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="je_dract">S社株式</td>
+            <td class="je_amt">25</td>
+            <td class="je_amt"></td>
+          </tr>
+          <tr>
+            <td class="je_dract">利益剰余金-期首</td>
+            <td class="je_amt">25</td>
+            <td class="je_amt"></td>
+          </tr>
+          <tr>
+            <td class="je_cract">資本剰余金-期首</td>
+            <td class="je_amt"></td>
+            <td class="je_amt">30</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="je_cract">非支配持分-期首</td>
+            <td class="je_amt"></td>
+            <td class="je_amt">20</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="journal_entry">
+        <thead>
+          <tr>
+            <td class="je_memo">非支配持分の計上</td>
+            <td class="je_dr">借方</td>
+            <td class="je_cr">貸方</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="je_dract">非支配株主に帰属する当期純利益</td>
+            <td class="je_amt">6<sup>*</sup></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="je_cract">非支配持分-当期</td>
+            <td></td>
+            <td class="je_amt">6</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="font-size: 10pt; margin-top: -15px;"><sup>*</sup>S社純損益20 × （売却前）非支配持分30% = 6</p>
+      <table class="journal_entry">
+        <thead>
+          <tr>
+            <td class="je_memo">投資と資本の相殺消去の振り戻し</td>
+            <td class="je_dr">借方</td>
+            <td class="je_cr">貸方</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="je_dract">S社株式</td>
+            <td class="je_amt">120</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="je_dract">非支配持分-除外</td>
+            <td class="je_amt">64</td>
+            <td class="je_amt"></td>
+          </tr>
+          <tr>
+            <td class="je_cract">資本金</td>
+            <td class="je_amt"></td>
+            <td class="je_amt">100</td>
+          </tr>
+          <tr>
+            <td class="je_cract">利益剰余金−除外</td>
+            <td class="je_amt"></td>
+            <td class="je_amt">60</td>
+          </tr>
+          <tr>
+            <td class="je_cract">のれん</td>
+            <td class="je_amt"></td>
+            <td class="je_amt">24</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="journal_entry">
+        <thead>
+          <tr>
+            <td class="je_memo">売却損益の調整</td>
+            <td class="je_dr">借方</td>
+            <td class="je_cr">貸方</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="je_dract">S社株式</td>
+            <td class="je_amt">55</td>
+            <td class="je_amt"></td>
+          </tr>
+          <tr>
+            <td class="je_dract">非支配持分-除外</td>
+            <td class="je_amt">2</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="je_dract">子会社売却損益</td>
+            <td class="je_amt">3</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="je_cract">利益剰余金-除外</td>
+            <td class="je_amt"></td>
+            <td class="je_amt">60<sup>*</sup></td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="font-size: 10pt; margin-top: -15px;"><sup>*</sup>S社の利益剰余金120 - 投資と資本の相殺消去の振り戻しの利益剰余金-除外60 = 60<br>
+        （最終的な利益剰余金-除外はゼロにならなければならない）</p>
+      <h4>【連結精算表】</h4>
+      <div style="overflow-x: auto; width: 800px;">
+        <table class="worksheet">
+          <thead>
+            <tr>
+              <td style="width: 150px; border-bottom: 1px solid #535353;"></td>
+              <td style="width: 60px; border-bottom: 1px solid #535353;">P社</td>
+              <td style="width: 60px; border-bottom: 1px solid #535353;">S社</td>
+              <td style="width: 60px; border-bottom: 1px solid #535353;">合計</td>
+              <td style="width: 60px; border-bottom: 1px solid #535353;">投相殺</td>
+              <td style="width: 60px; border-bottom: 1px solid #535353;">非支</td>
+              <td style="width: 60px; border-bottom: 1px solid #535353;">追取得</td>
+              <td style="width: 60px; border-bottom: 1px solid #535353;">一部売</td>
+              <td style="width: 60px; border-bottom: 1px solid #535353;">開始戻</td>
+              <td style="width: 60px; border-bottom: 1px solid #535353;">売却</td>
+              <td style="width: 60px; border-bottom: 1px solid #535353;">連結</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>資産</td>
+              <td style="text-align: right;">1,710</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">1,710</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">1,710</td>
+            </tr>
+            <tr>
+              <td>S社株式</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">0</td>
+              <td style="text-align: right;">(120)</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">(80)</td>
+              <td style="text-align: right;">25</td>
+              <td style="text-align: right;">120</td>
+              <td style="text-align: right;">55</td>
+              <td style="text-align: right;">0</td>
+            </tr>
+            <tr>
+              <td>のれん</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">0</td>
+              <td style="text-align: right;">24</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">(24)</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">0</td>
+            </tr>
+            <tr>
+              <td>資本金</td>
+              <td style="text-align: right;">800</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">800</td>
+              <td style="text-align: right;">(100)</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">100</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">800</td>
+            </tr>
+            <tr style="background-color: #e0e0e0;">
+              <td>&emsp;資本剰余金-期首</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">0</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">(44)</td>
+              <td style="text-align: right;">30</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">(14)</td>
+            </tr>
+            <tr>
+              <td>資本剰余金-期末</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">0</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">(44)</td>
+              <td style="text-align: right;">30</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">(14)</td>
+            </tr>
+            <tr style="background-color: #e0e0e0;">
+              <td>&emsp;利益剰余金-期首</td>
+              <td style="text-align: right;">665</td>
+              <td style="text-align: right;">100</td>
+              <td style="text-align: right;">765</td>
+              <td style="text-align: right;">(60)</td>
+              <td style="text-align: right;">(12)</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">(25)</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">668</td>
+            </tr>
+            <tr style="background-color: #e0e0e0;">
+              <td>&emsp;利益剰余金-当期</td>
+              <td style="text-align: right;">245</td>
+              <td style="text-align: right;">20</td>
+              <td style="text-align: right;">265</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">(6)</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">(3)</td>
+              <td style="text-align: right;">256</td>
+            </tr>
+            <tr style="background-color: #e0e0e0;">
+              <td>&emsp;利益剰余金-除外</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">(120)</td>
+              <td style="text-align: right;">(120)</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">60</td>
+              <td style="text-align: right;">60</td>
+              <td style="text-align: right;">0</td>
+            </tr>
+            <tr>
+              <td>利益剰余金-期末</td>
+              <td style="text-align: right;">910</td>
+              <td style="text-align: right;">0</td>
+              <td style="text-align: right;">910</td>
+              <td style="text-align: right;">(60)</td>
+              <td style="text-align: right;">(18)</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">(25)</td>
+              <td style="text-align: right;">60</td>
+              <td style="text-align: right;">57</td>
+              <td style="text-align: right;">924</td>
+            </tr>
+            <tr style="background-color: #e0e0e0;">
+              <td>&emsp;非支配持分-期首</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">0</td>
+              <td style="text-align: right;">64</td>
+              <td style="text-align: right;">12</td>
+              <td style="text-align: right;">(36)</td>
+              <td style="text-align: right;">20</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">60</td>
+            </tr>
+            <tr style="background-color: #e0e0e0;">
+              <td>&emsp;非支配持分-当期</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">0</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">6</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">6</td>
+            </tr>
+            <tr style="background-color: #e0e0e0;">
+              <td>&emsp;非支配持分-除外</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">0</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">(64)</td>
+              <td style="text-align: right;">(2)</td>
+              <td style="text-align: right;">(66)</td>
+            </tr>
+            <tr>
+              <td>非支配持分-期末</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">0</td>
+              <td style="text-align: right;">64</td>
+              <td style="text-align: right;">18</td>
+              <td style="text-align: right;">(36)</td>
+              <td style="text-align: right;">20</td>
+              <td style="text-align: right;">(64)</td>
+              <td style="text-align: right;">(2)</td>
+              <td style="text-align: right;">0</td>
+            </tr>
+            <tr style="height: 16px;">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr style="background-color: #e0e0e0;">
+              <td>&emsp;子会社売却益</td>
+              <td style="text-align: right;">125</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">125</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">(3)</td>
+              <td style="text-align: right;">122</td>
+            </tr>
+            <tr style="background-color: #e0e0e0;">
+              <td>&emsp;その他損益</td>
+              <td style="text-align: right;">120</td>
+              <td style="text-align: right;">20</td>
+              <td style="text-align: right;">140</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">140</td>
+            </tr>
+            <tr>
+              <td>純損益</td>
+              <td style="text-align: right;">245</td>
+              <td style="text-align: right;">20</td>
+              <td style="text-align: right;">265</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">(3)</td>
+              <td style="text-align: right;">262</td>
+            </tr>
+            <tr style="height: 16px;">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>親持純損益</td>
+              <td style="text-align: right;">245</td>
+              <td style="text-align: right;">20</td>
+              <td style="text-align: right;">265</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">(6)</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">(3)</td>
+              <td style="text-align: right;">256</td>
+            </tr>
+            <tr>
+              <td>非支持純損益</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">6</td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;"></td>
+              <td style="text-align: right;">6</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <hr>
+      <p>連結上の子会社売却損益は122となり、単体の売却益125との差異は3でした。この差異は、単体のS社株式175と連結上の簿価178との差額によるものです。</p>
+      <p>よって、連結上の子会社売却損益を計算するためには、各期において子会社の連結上の簿価を計算しておけば簡単に求めることができます。ただし、再編などで子会社の異動が頻繁に発生すると連結上の簿価を正しく計算しておくことも難しくなっていきます。いかにして連結上の簿価を正しく管理できるか、という点が最も重要だと思われます。</p>
+    </section>
+	</div>
+</main>
+<footer>
+  <div class="footer-container">
+    <div class="next"><a href="">&lt;&lt; </a></div>
+    <div class="prev"><a href="./2021-03-03.html">連結子会社の売却損益計算：一部売却 &gt;&gt;</a></div>
+    <div class="top"><a href="#">トップへ戻る</a></div>
+    <div class="copyright">
+      <small>Copyright(C)iBean, Allright Reserved.</small>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
